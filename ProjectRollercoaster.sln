@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectRollercoaster.Server", "ProjectRollercoaster\Server\ProjectRollercoaster.Server.csproj", "{6F7FF8F7-02D1-48F5-B060-99B6DEB610D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectRollercoaster.Server", "ProjectRollercoaster\Server\ProjectRollercoaster.Server.csproj", "{6F7FF8F7-02D1-48F5-B060-99B6DEB610D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectRollercoaster.Client", "ProjectRollercoaster\Client\ProjectRollercoaster.Client.csproj", "{BA89AC92-C672-463A-8B6F-218F9461EC62}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectRollercoaster.Client", "ProjectRollercoaster\Client\ProjectRollercoaster.Client.csproj", "{BA89AC92-C672-463A-8B6F-218F9461EC62}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectRollercoaster.Shared", "ProjectRollercoaster\Shared\ProjectRollercoaster.Shared.csproj", "{4263ED81-A289-4F92-AE50-81D5A1924E61}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectRollercoaster.Shared", "ProjectRollercoaster\Shared\ProjectRollercoaster.Shared.csproj", "{4263ED81-A289-4F92-AE50-81D5A1924E61}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
