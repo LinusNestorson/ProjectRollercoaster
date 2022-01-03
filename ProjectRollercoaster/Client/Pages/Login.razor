@@ -4,6 +4,8 @@
 {
     <h3>Welcome, @user.Username</h3>
 }
+else
+{
 
 <h3>Login</h3>
 
@@ -20,6 +22,7 @@
     <button type="submit" class="btn btn-primary">Login</button>
     <ValidationSummary></ValidationSummary>
 </EditForm>
+}
 
 @code {
     bool isAuthenticated = false;
