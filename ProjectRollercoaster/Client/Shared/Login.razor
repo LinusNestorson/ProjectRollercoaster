@@ -1,13 +1,7 @@
-﻿@page "/login"
+﻿@inject ILocalStorageService LocalStorage;
+@inject AuthenticationStateProvider AuthenticationStateProvider;
 
-@if (isAuthenticated)
-{
-    <h3>Welcome, @user.Username</h3>
-}
-else
-{
-
-<h3>Login</h3>
+Please log in below or <a href="register">register</a> for a new account.
 
 <EditForm Model="user" OnValidSubmit="HandleLogin">
     <DataAnnotationsValidator></DataAnnotationsValidator>
@@ -22,15 +16,14 @@ else
     <button type="submit" class="btn btn-primary">Login</button>
     <ValidationSummary></ValidationSummary>
 </EditForm>
-}
+
 
 @code {
-    bool isAuthenticated = false;
     private UserLogin user = new UserLogin();
 
-    private void HandleLogin()
+    private async void HandleLogin()
     {
-        Console.WriteLine($"{user.Username} // {user.Password}");
-        isAuthenticated = true;
+        await LocalStorage.SetItemAsync<bool>("isAuthenticated", true);
+        await AuthenticationStateProvider.GetAuthenticationStateAsync();
     }
 }

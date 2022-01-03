@@ -1,4 +1,6 @@
 ﻿@page "/register"
+@inject IJSRuntime JSRuntime
+@inject NavigationManager NavigationManager
 
 <h3>Register</h3>
 
@@ -42,7 +44,7 @@
 
     void HandleRegistration()
     {
-        Console.WriteLine("Store this new user in the database");
-
+        JSRuntime.InvokeVoidAsync("console.log", user);
+        NavigationManager.NavigateTo("login");
     }
 }

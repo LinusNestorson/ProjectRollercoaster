@@ -1,4 +1,12 @@
-﻿<h2 class="text-primary">Insert username</h2>
+﻿
+        <AuthorizeView>
+            <Authorized>
+                <h2 class="text-primary">@context.User.Identity.Name</h2>
+            </Authorized>
+            <NotAuthorized>
+                 <h2 class="text-primary">Not auth user</h2>
+            </NotAuthorized>
+        </AuthorizeView>
 
 @code {
 
