@@ -15,8 +15,6 @@
         [StringLength(16, ErrorMessage = "Username is too long (max 16 characters)")]
         public string Username { get; set; }
 
-        public string Bio { get; set; }
-
         [Required, StringLength(100, MinimumLength = 6)]
         public string Password { get; set; }
 
