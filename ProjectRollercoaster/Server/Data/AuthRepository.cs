@@ -34,7 +34,7 @@
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            return new ServiceResponse<int> { Data = user.Id, Message = "User already exists." };
+            return new ServiceResponse<int> { Data = user.Id, Message = "User is added." };
         }
 
         public async Task<bool> UserExists(string email)
