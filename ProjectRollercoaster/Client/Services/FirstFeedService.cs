@@ -1,21 +1,21 @@
 ﻿namespace ProjectRollercoaster.Client.Services
 {
+    using ProjectRollercoaster.Shared;
     using System.Net.Http.Json;
 
     public class FirstFeedService : IFeedService
     {
         private readonly HttpClient _http;
 
-        public string FirstFeed { get; set; }
-
         public FirstFeedService(HttpClient http)
         {
             _http = http;
         }
 
-        public async Task GetFirstFeed()
+        public async Task<Feed> GetFeed()
         {
-            FirstFeed = await _http.GetFromJsonAsync<string>("api/user/getfirstfeed");
+            var feed = await _http.GetFromJsonAsync<Feed>("api/feed");
+            return feed;
         }
     }
 }

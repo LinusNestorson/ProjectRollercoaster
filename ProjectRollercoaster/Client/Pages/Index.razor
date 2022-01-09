@@ -1,11 +1,12 @@
 ﻿@page "/"
+@inject IFeedService FirstFeedService
 @attribute [Authorize]
 
 <PageTitle>Index</PageTitle>
 
 <div class="articleGrid">
     <div class="articleOne">
-        <h1>hej</h1>
+     <p>@feed.PublishDate</p>
     </div>
     <article class="articleTwo">
         <h1>hej</h1>
@@ -14,3 +15,13 @@
         <h1>hej</h1>
     </article>
 </div>
+
+@code {
+
+    private Feed feed = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        feed = await FirstFeedService.GetFeed();
+    }
+}
