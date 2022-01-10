@@ -26,7 +26,9 @@ jobs:
       
   build-and-deploy-to-staging-site:
     if: |
-      github.base_ref == 'staging'
+      (github.event_name == 'pull_request' ||
+      github.base_ref == 'staging')
+    needs: [build]
     runs-on: ubuntu-latest
     steps:
     # checkout the repo
