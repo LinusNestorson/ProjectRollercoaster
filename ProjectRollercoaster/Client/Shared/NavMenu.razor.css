@@ -1,3 +1,15 @@
+.nameContainer {
+    background-color: #2e2e2e
+}
+
+.sideNav {
+    background-color: #2e2e2e
+}
+
+.navItem {
+    background-color: #2e2e2e
+}
+
 .navbar-toggler {
     background-color: rgba(255, 255, 255, 0.1);
 }
