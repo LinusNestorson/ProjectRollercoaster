@@ -24,18 +24,18 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
       
-  build-and-deploy:
+  build-and-deploy-to-staging-site:
     if: |
-      github.base_ref == 'master'
+      github.base_ref == 'staging'
     runs-on: ubuntu-latest
     steps:
     # checkout the repo
-    - uses: actions/checkout@master
+    - uses: actions/checkout@staging
     
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 6.0.x # Replace with specific dotnet core version
+        dotnet-version: 6.0.x
     
     # dotnet build and publish
     - name: Build with dotnet
