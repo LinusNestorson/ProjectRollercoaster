@@ -13,17 +13,8 @@
     padding-left: 1.5vw;
 }
 
-.articleOne {
+.indexArticle {
     border: solid black 1px;
-    background-color: #e5e5e5;
-}
-
-.articleTwo {
-    border: solid black 1px;
-    background-color: #e5e5e5;
-}
-
-.articleThree {
-    border: solid black 1px;
-    background-color: #e5e5e5;
+    background-color: lightgray;
+    box-shadow: 3px 3px 3px grey;
 }

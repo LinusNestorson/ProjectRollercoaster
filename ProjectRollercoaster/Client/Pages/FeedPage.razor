@@ -1,0 +1,14 @@
+﻿@page "/feed"
+
+<h3>FeedPage</h3>
+
+<FeedContent />
+
+@code {
+    private Feed feed = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        //feed = await FirstFeedService.GetFeed();
+    }
+}
