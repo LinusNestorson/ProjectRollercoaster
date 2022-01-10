@@ -24,7 +24,7 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
       
-  Deploy:
+  deploy:
     name: AzureDeployment
     runs-on: windows-2022
     if: github.base_ref == 'master'
