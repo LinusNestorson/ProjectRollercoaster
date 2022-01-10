@@ -1,5 +1,5 @@
 ﻿.articleGrid {
-    padding-top: 5vh;
+    padding-top: 1vh;
     display: grid;
     margin: auto;
     height: 90vh;
@@ -8,14 +8,22 @@
     row-gap: 2em;
 }
 
+.indexHeader {
+    padding-top: 2vh;
+    padding-left: 1.5vw;
+}
+
 .articleOne {
     border: solid black 1px;
+    background-color: #e5e5e5;
 }
 
 .articleTwo {
     border: solid black 1px;
+    background-color: #e5e5e5;
 }
 
 .articleThree {
     border: solid black 1px;
+    background-color: #e5e5e5;
 }

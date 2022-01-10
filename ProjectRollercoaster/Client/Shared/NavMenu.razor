@@ -2,7 +2,7 @@
 @inject AuthenticationStateProvider AuthStateProvider
 @inject NavigationManager NavigationManager
 
-<div class="top-row ps-3 navbar navbar-dark">
+<div class="nameContainer">
     <div class="container-fluid">
         <a class="navbar-brand" href=""><UserInfo /></a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
@@ -11,7 +11,7 @@
     </div>
 </div>
 
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+<div class="sideNav" @onclick="ToggleNavMenu">
     <div class="nav-item px-3">
         <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
             <span class="oi oi-home" aria-hidden="true"></span> Home
@@ -19,7 +19,7 @@
     </div>
     <AuthorizeView>
         <Authorized>
-            <nav class="flex-column">
+            <nav class="sideNav">
                 <div class="nav-item px-3">
                     <NavLink class="nav-link" href="counter">
                         <span class="oi oi-plus" aria-hidden="true"></span> Counter
