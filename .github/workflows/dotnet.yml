@@ -2,9 +2,9 @@ name: .NET
 
 on:
   push:
-    branches: [ master ]
+    branches: [ development ]
   pull_request:
-    branches: [ master ]
+    branches: [ staging, master ]
 
 jobs:
   build:
@@ -24,12 +24,28 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
       
-  deploy:
-    name: AzureDeployment
-    runs-on: windows-2022
-    if: github.base_ref == 'master'
-  
+  build-and-deploy:
+    if: |
+      github.base_ref == 'master'
+    runs-on: ubuntu-latest
     steps:
-    - uses: azure/webapps-deploy@v2
+    # checkout the repo
+    - uses: actions/checkout@master
+    
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
       with:
+        dotnet-version: 6.0.x # Replace with specific dotnet core version
+    
+    # dotnet build and publish
+    - name: Build with dotnet
+      run: dotnet build --configuration Release
+    - name: dotnet publish
+      run: |
+        dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp 
+    - name: 'Run Azure webapp deploy action using publish profile credentials'
+      uses: azure/webapps-deploy@v1
+      with: 
+        app-name: ProjectRollercoaster # Replace with your app name
         publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+        package: ${{env.DOTNET_ROOT}}/myapp 
