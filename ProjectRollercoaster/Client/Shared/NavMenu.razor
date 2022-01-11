@@ -3,15 +3,14 @@
 @inject NavigationManager NavigationManager
 
 <div class="nameContainer">
-    <div class="container-fluid">
-        <a class="navbar-brand" href=""><UserInfo /></a>
-        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </div>
+    <a class="navbar-brand" href=""><UserInfo /></a>
+    <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 </div>
 
 <div class="sideNav" @onclick="ToggleNavMenu">
+
     <div class="nav-item px-3">
         <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
             <span class="oi oi-home" aria-hidden="true"></span> Home
@@ -19,21 +18,32 @@
     </div>
     <AuthorizeView>
         <Authorized>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="settings">
+                    <span class="oi oi-plus" aria-hidden="true"></span> Manage Feeds
+                </NavLink>
+            </div>
             <nav class="sideNav">
-                <div class="nav-item px-3">
-                    <NavLink class="nav-link" href="counter">
-                        <span class="oi oi-plus" aria-hidden="true"></span> Counter
-                    </NavLink>
+
+                <div class="subscriptionSection">
+                    <h3 class="subText">Subscriptions</h3>
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="feed">
+                            <span class="oi oi-plus" aria-hidden="true"></span> Counter
+                        </NavLink>
+                    </div>
                 </div>
-                <div class="nav-item px-3">
-                    <NavLink class="nav-link" href="register">
-                        <span class="oi oi-list-rich" aria-hidden="true"></span> Register
-                    </NavLink>
-                </div>
-                <div class="nav-item px-3">
-                    <a class="nav-link" @onclick="Logout" style="cursor: pointer;">
-                        <span class="oi oi-account-logout" aria-hidden="true"></span> Logout
-                    </a>
+                <div class="bottomOptions">
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="setting">
+                            <span class="oi oi-list-rich" aria-hidden="true"></span> Settings
+                        </NavLink>
+                    </div>
+                    <div class="nav-item px-3">
+                        <a class="nav-link" @onclick="Logout" style="cursor: pointer;">
+                            <span class="oi oi-account-logout" aria-hidden="true"></span> Logout
+                        </a>
+                    </div>
                 </div>
             </nav>
         </Authorized>
