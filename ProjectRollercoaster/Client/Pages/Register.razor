@@ -4,7 +4,11 @@
 @inject IAuthService AuthService
 @inject IToastService ToastService
 
+<PageTitle>Register</PageTitle>
+
 <h3>Register</h3>
+
+ <BlazoredToasts/>
 
 <EditForm Model="user" OnValidSubmit="HandleRegistration">
     <DataAnnotationsValidator></DataAnnotationsValidator>

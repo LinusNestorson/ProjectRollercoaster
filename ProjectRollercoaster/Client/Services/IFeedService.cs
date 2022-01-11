@@ -4,6 +4,10 @@
 
     public interface IFeedService
     {
-        Task<Feed> GetFeed();
+        //Task<Feed> GetFeed();
+
+        void AddFeed(Feed rssLink);
+
+        void RemoveFeed(string rssLink);
     }
 }

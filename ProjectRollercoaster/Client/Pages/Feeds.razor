@@ -1,0 +1,33 @@
+﻿@page "/feeds"
+@inject IFeedService FeedService
+
+<PageTitle>Feeds</PageTitle>
+
+<main>
+    <h3>Feeds</h3>
+</main>
+
+<EditForm Model="feed" OnValidSubmit="AddRss">
+    <InputText id="rssAdd" @bind-Value="feed.RssLink" class="form-control"></InputText>
+    <button type="submit" class="btn btn-primary">Add feed</button>
+</EditForm>
+
+<EditForm Model="feedhandler" OnValidSubmit="RemoveRss">
+    <InputText id="rssRemove" @bind-Value="feedhandler.RssDelete" class="form-control"></InputText>
+    <button type="submit" class="btn btn-primary">Remove feed</button>
+</EditForm>
+
+@code {
+    Feed feed = new();
+
+    FeedHandler feedhandler = new();
+
+    private void AddRss()
+    {
+        FeedService.AddFeed(feed);
+    }
+    private void RemoveRss()
+    {
+        FeedService.RemoveFeed(feedhandler.RssDelete);
+    }
+}
