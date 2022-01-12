@@ -1,12 +1,14 @@
 ﻿namespace ProjectRollercoaster.Server.Controllers
 {
-    using DocumentFormat.OpenXml.Office.CustomUI;
+
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using ProjectRollercoaster.Server.Data;
     using ProjectRollercoaster.Shared;
+    using ProjectRollercoaster.Server.Helpers;
+    using DocumentFormat.OpenXml.Office.CustomUI;
     using System.ServiceModel.Syndication;
     using System.Xml;
 
@@ -22,35 +24,49 @@
         }
 
         //[HttpGet]
-        //public ActionResult<Feed> GetFeed()
+        //public ActionResult<string> CheckFeed(string feedurl)
         //{
-        //    var testObject = new Feed();
+            //string testObject = "";
 
-        //        string url = "http://svt.se/nyheter/regionalt/blekingenytt/rss.xml";
-        //        var reader = XmlReader.Create(url);
-        //        var feed = SyndicationFeed.Load(reader);
-        //        foreach (SyndicationItem item in feed.Items)
-        //        {
-        //            testObject.PublishDate = item.PublishDate.ToString();
-        //            testObject.Summary = item.Summary.Text;
-        //        }
+            //string url = "http://svt.se/nyheter/regionalt/blekingenytt/rss.xml";
+            //var reader = XmlReader.Create(url);
+            //var feed = SyndicationFeed.Load(reader);
+            //    foreach (SyndicationItem item in feed.Items)
+            //    {
+            //        testObject = item.PublishDate.ToString();
+            //    }
 
-        //    return Ok(testObject);
-        //    }
+            //    return Ok(testObject);
+
+
         //}
 
-        //[HttpGet]
-        //public async Task<IActionResult> GetFeeds()
-        //{
-        //    return Ok()
-        //}
+     
 
-        [HttpPost]
+    //[HttpGet]
+    //public async Task<IActionResult> GetFeeds()
+    //{
+    //    return Ok()
+    //}
+
+    [HttpPost]
         public async Task<IActionResult> AddFeed(Feed feed)
         {
-            _context.Feeds.Add(feed);
-            await _context.SaveChangesAsync();
-            return Ok(await _context.Feeds.ToListAsync());
+
+            XmlCheck xmlCheck = new();
+            var check = await xmlCheck.DoesXmlExist(feed.RssLink);
+
+            if (check == "success")
+            {
+                _context.Feeds.Add(feed);
+                await _context.SaveChangesAsync();
+                return Ok(await _context.Feeds.ToListAsync());
+            }
+            else
+            { 
+                return BadRequest();
+            }
+
         }
 
         [HttpDelete("{rsslink}")]

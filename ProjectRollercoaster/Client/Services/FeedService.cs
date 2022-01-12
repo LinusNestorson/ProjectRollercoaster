@@ -1,5 +1,6 @@
 ﻿namespace ProjectRollercoaster.Client.Services
 {
+    using Microsoft.AspNetCore.Mvc;
     using ProjectRollercoaster.Shared;
     using System.Net.Http.Json;
     using System.ServiceModel.Syndication;
@@ -15,23 +16,34 @@
         }
 
 
-        //public async Task GetFeeds()
+        //public async Task GetFeed(Feed feed)
         //{
-        //    Feeds = await _http.GetFromJsonAsync<IList<Feed>>("api/feed");
+        //    var response = await _http.GetFromJsonAsync<string>("api/feed/" + feed.RssLink);
+
+        //    if (response == "testSuccess")
+        //    {
+        //        AddFeed(feed);
+        //    }
+        //    else if (response == "testFail")
+        //    {
+        //        throw new Exception("TestFail");
+        //    }
+
+
         //}
 
-        public void AddFeed(Feed feed)
+        public async Task<ActionResult<bool>> AddFeed(Feed feed)
         {
 
-
-                string url = feed.RssLink;
-                var reader = XmlReader.Create(url);
-
-
-                _http.PostAsJsonAsync("api/feed", feed);
-
-
-         
+           var response = await _http.PostAsJsonAsync("api/feed", feed);
+            if (!response.IsSuccessStatusCode)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
         public void RemoveFeed(string rssLink)

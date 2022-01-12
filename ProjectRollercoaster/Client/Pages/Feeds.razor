@@ -3,19 +3,23 @@
 
 <PageTitle>Feeds</PageTitle>
 
-<main>
-    <h3>Feeds</h3>
-</main>
 
-<EditForm Model="feed" OnValidSubmit="AddRss">
-    <InputText id="rssAdd" @bind-Value="feed.RssLink" class="form-control"></InputText>
-    <button type="submit" class="btn btn-primary">Add feed</button>
-</EditForm>
+<div class="feedPage">
+    <h1>Manage your feeds</h1>
+    <br />
 
-<EditForm Model="feedhandler" OnValidSubmit="RemoveRss">
-    <InputText id="rssRemove" @bind-Value="feedhandler.RssDelete" class="form-control"></InputText>
-    <button type="submit" class="btn btn-primary">Remove feed</button>
-</EditForm>
+    <EditForm Model="feed" OnValidSubmit="AddRss">
+        <InputText id="rssAdd" @bind-Value="feed.RssLink" class="form-control"></InputText>
+        <button type="submit" class="btn btn-primary">Add feed</button>
+    </EditForm>
+
+    <EditForm Model="feedhandler" OnValidSubmit="RemoveRss">
+        <InputText id="rssRemove" @bind-Value="feedhandler.RssDelete" class="form-control"></InputText>
+        <button type="submit" class="btn btn-primary">Remove feed</button>
+    </EditForm>
+</div>
+
+
 
 @code {
     Feed feed = new();
@@ -24,10 +28,17 @@
 
     private void AddRss()
     {
-        FeedService.AddFeed(feed);
+        var failOrSuccess = FeedService.AddFeed(feed);
+
+        if(!failOrSuccess.Result.Value)
+        {
+            throw new Exception("invalid rss feed");
+        }
     }
     private void RemoveRss()
     {
         FeedService.RemoveFeed(feedhandler.RssDelete);
     }
+
+
 }

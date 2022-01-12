@@ -5,7 +5,7 @@
 
 Please log in below or <a href="register">register</a> for a new account.
 
-<BlazoredToasts/>
+<ErrorBoundary>
 <EditForm Model="user" OnValidSubmit="HandleLogin">
     <DataAnnotationsValidator></DataAnnotationsValidator>
     <div class="form-group">
@@ -19,6 +19,7 @@ Please log in below or <a href="register">register</a> for a new account.
     <button type="submit" class="btn btn-primary">Login</button>
     <ValidationSummary></ValidationSummary>
 </EditForm>
+</ErrorBoundary>
 
 
 
