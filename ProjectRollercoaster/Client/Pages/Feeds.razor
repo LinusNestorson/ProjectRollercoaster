@@ -26,11 +26,11 @@
 
     FeedHandler feedhandler = new();
 
-    private void AddRss()
+    private async Task AddRss()
     {
-        var failOrSuccess = FeedService.AddFeed(feed);
+        var failOrSuccess = await FeedService.AddFeed(feed);
 
-        if(!failOrSuccess.Result.Value)
+        if(!failOrSuccess)
         {
             throw new Exception("invalid rss feed");
         }

@@ -8,7 +8,7 @@
         //Task<Feed> GetFeed();
         //Task GetFeed(Feed rssLink);
 
-        Task<ActionResult<bool>> AddFeed(Feed rssLink);
+        Task<bool> AddFeed(Feed rssLink);
 
         void RemoveFeed(string rssLink);
     }

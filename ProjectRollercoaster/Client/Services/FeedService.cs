@@ -15,7 +15,6 @@
             _http = http;
         }
 
-
         //public async Task GetFeed(Feed feed)
         //{
         //    var response = await _http.GetFromJsonAsync<string>("api/feed/" + feed.RssLink);
@@ -29,20 +28,18 @@
         //        throw new Exception("TestFail");
         //    }
 
-
         //}
 
-        public async Task<ActionResult<bool>> AddFeed(Feed feed)
+        public async Task<bool> AddFeed(Feed feed)
         {
-
-           var response = await _http.PostAsJsonAsync("api/feed", feed);
-            if (!response.IsSuccessStatusCode)
+            var response = await _http.PostAsJsonAsync("api/feed", feed);
+            if (response.IsSuccessStatusCode)
             {
-                return false;
+                return true;
             }
             else
             {
-                return true;
+                return false;
             }
         }
 

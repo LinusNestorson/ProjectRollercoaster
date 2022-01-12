@@ -1,6 +1,5 @@
 ﻿namespace ProjectRollercoaster.Server.Controllers
 {
-
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
@@ -26,47 +25,44 @@
         //[HttpGet]
         //public ActionResult<string> CheckFeed(string feedurl)
         //{
-            //string testObject = "";
+        //string testObject = "";
 
-            //string url = "http://svt.se/nyheter/regionalt/blekingenytt/rss.xml";
-            //var reader = XmlReader.Create(url);
-            //var feed = SyndicationFeed.Load(reader);
-            //    foreach (SyndicationItem item in feed.Items)
-            //    {
-            //        testObject = item.PublishDate.ToString();
-            //    }
+        //string url = "http://svt.se/nyheter/regionalt/blekingenytt/rss.xml";
+        //var reader = XmlReader.Create(url);
+        //var feed = SyndicationFeed.Load(reader);
+        //    foreach (SyndicationItem item in feed.Items)
+        //    {
+        //        testObject = item.PublishDate.ToString();
+        //    }
 
-            //    return Ok(testObject);
-
+        //    return Ok(testObject);
 
         //}
 
-     
+        //[HttpGet]
+        //public async Task<IActionResult> GetFeeds()
+        //{
+        //    return Ok()
+        //}
 
-    //[HttpGet]
-    //public async Task<IActionResult> GetFeeds()
-    //{
-    //    return Ok()
-    //}
-
-    [HttpPost]
+        [HttpPost]
         public async Task<IActionResult> AddFeed(Feed feed)
         {
+            RssCheck xmlCheck = new();
+            var check = xmlCheck.IsRssValid(feed.RssLink);
 
-            XmlCheck xmlCheck = new();
-            var check = await xmlCheck.DoesXmlExist(feed.RssLink);
+            var dbFeed = await _context.Feeds.FirstOrDefaultAsync(f => f.RssLink == feed.RssLink);
 
-            if (check == "success")
+            if (check && dbFeed == null)
             {
                 _context.Feeds.Add(feed);
                 await _context.SaveChangesAsync();
                 return Ok(await _context.Feeds.ToListAsync());
             }
             else
-            { 
+            {
                 return BadRequest();
             }
-
         }
 
         [HttpDelete("{rsslink}")]
