@@ -65,10 +65,10 @@
             }
         }
 
-        [HttpDelete("{rsslink}")]
-        public async Task<IActionResult> DeleteFeed(string rsslink)
+        [HttpDelete("{Id}")]
+        public async Task<IActionResult> DeleteFeed(int Id)
         {
-            var dbFeed = await _context.Feeds.FirstOrDefaultAsync(f => f.RssLink == rsslink);
+            var dbFeed = await _context.Feeds.FirstOrDefaultAsync(f => f.Id == Id);
             if (dbFeed == null)
             {
                 return NotFound("Feed with given link does not exist");
@@ -76,6 +76,13 @@
             _context.Feeds.Remove(dbFeed);
             await _context.SaveChangesAsync();
             return Ok(await _context.Feeds.ToListAsync());
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllFeeds()
+        {
+            var dbFeeds = await _context.Feeds.ToListAsync();
+            return Ok(dbFeeds);
         }
     }
 }

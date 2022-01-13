@@ -10,6 +10,10 @@
     {
         private readonly HttpClient _http;
 
+        public event Action OnChange;
+
+        public IList<Feed> Feeds { get; set; } = new List<Feed>();
+
         public FeedService(HttpClient http)
         {
             _http = http;
@@ -43,9 +47,14 @@
             }
         }
 
-        public void RemoveFeed(string rssLink)
+        public void RemoveFeed(int id)
         {
-            _http.DeleteAsync("api/feed/" + rssLink);
+            _http.DeleteAsync("api/feed/" + id);
+        }
+
+        public async Task LoadAllFeeds()
+        {
+            Feeds = await _http.GetFromJsonAsync<IList<Feed>>("api/feed");
         }
     }
 }

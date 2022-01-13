@@ -5,11 +5,14 @@
 
     public interface IFeedService
     {
-        //Task<Feed> GetFeed();
-        //Task GetFeed(Feed rssLink);
+        IList<Feed> Feeds { get; set; }
+
+        event Action OnChange;
 
         Task<bool> AddFeed(Feed rssLink);
 
-        void RemoveFeed(string rssLink);
+        void RemoveFeed(int id);
+
+        Task LoadAllFeeds();
     }
 }

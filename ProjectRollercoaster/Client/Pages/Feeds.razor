@@ -5,18 +5,32 @@
 
 
 <div class="feedPage">
-    <h1>Manage your feeds</h1>
-    <br />
 
-    <EditForm Model="feed" OnValidSubmit="AddRss">
-        <InputText id="rssAdd" @bind-Value="feed.RssLink" class="form-control"></InputText>
-        <button type="submit" class="btn btn-primary">Add feed</button>
-    </EditForm>
+    <section>
+        <h1>Manage your feeds</h1>
+        <br />
 
-    <EditForm Model="feedhandler" OnValidSubmit="RemoveRss">
-        <InputText id="rssRemove" @bind-Value="feedhandler.RssDelete" class="form-control"></InputText>
-        <button type="submit" class="btn btn-primary">Remove feed</button>
-    </EditForm>
+        <EditForm Model="feed" OnValidSubmit="AddRss">
+            <div class=addFeedContainer>
+                <div class="rssInput"><InputText id="rssAdd" @bind-Value="feed.RssLink" class="form-control col-md-6"></InputText></div>
+                <button type="submit" class="btn btn-primary">Add feed</button>
+            </div>
+        </EditForm>
+
+        <div class=removeFeedContainer>
+
+            <ul>
+                @foreach (var item in FeedService.Feeds)
+                {
+                    <li class="removeRow">
+
+                        <div class="linkText">@item.RssLink</div> <button class="btn btn-danger" id="removeButton" @onclick="() => RemoveRss(item.Id)">Remove</button>
+
+                    </li>
+                }
+            </ul>
+        </div>
+    </section>
 </div>
 
 
@@ -30,15 +44,28 @@
     {
         var failOrSuccess = await FeedService.AddFeed(feed);
 
-        if(!failOrSuccess)
+        if (!failOrSuccess)
         {
             throw new Exception("invalid rss feed");
         }
+
+        await ReloadFeeds();
     }
-    private void RemoveRss()
+    private async void RemoveRss(int id)
     {
-        FeedService.RemoveFeed(feedhandler.RssDelete);
+        FeedService.RemoveFeed(id);
+        await ReloadFeeds();
     }
 
+    protected override async Task OnInitializedAsync()
+    {
+        await FeedService.LoadAllFeeds();
+    }
+
+    private async Task ReloadFeeds()
+    {
+        await FeedService.LoadAllFeeds();
+        StateHasChanged();
+    }
 
 }
