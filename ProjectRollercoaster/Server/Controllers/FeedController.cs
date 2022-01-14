@@ -48,14 +48,15 @@
         [HttpPost]
         public async Task<IActionResult> AddFeed(Feed feed)
         {
-            RssCheck xmlCheck = new();
-            var check = xmlCheck.IsRssValid(feed.RssLink);
+            RssHelper xmlHelpers = new();
+            var check = xmlHelpers.IsRssValid(feed.Link);
 
-            var dbFeed = await _context.Feeds.FirstOrDefaultAsync(f => f.RssLink == feed.RssLink);
+            var dbFeed = await _context.Feeds.FirstOrDefaultAsync(f => f.Link == feed.Link);
 
             if (check && dbFeed == null)
             {
-                _context.Feeds.Add(feed);
+                var feedObject = xmlHelpers.GetRssInfo(feed.Link);
+                _context.Feeds.Add(feedObject);
                 await _context.SaveChangesAsync();
                 return Ok(await _context.Feeds.ToListAsync());
             }

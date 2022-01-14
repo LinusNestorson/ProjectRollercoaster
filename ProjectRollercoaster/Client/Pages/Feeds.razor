@@ -12,7 +12,7 @@
 
         <EditForm Model="feed" OnValidSubmit="AddRss">
             <div class=addFeedContainer>
-                <div class="rssInput"><InputText id="rssAdd" @bind-Value="feed.RssLink" class="form-control col-md-6"></InputText></div>
+                <div class="rssInput"><InputText id="rssAdd" @bind-Value="feed.Link" class="form-control col-md-6"></InputText></div>
                 <button type="submit" class="btn btn-primary">Add feed</button>
             </div>
         </EditForm>
@@ -24,7 +24,7 @@
                 {
                     <li class="removeRow">
 
-                        <div class="linkText">@item.RssLink</div> <button class="btn btn-danger" id="removeButton" @onclick="() => RemoveRss(item.Id)">Remove</button>
+                        <div class="linkText">@item.Link</div> <button class="btn btn-danger" id="removeButton" @onclick="() => RemoveRss(item.Id)">Remove</button>
 
                     </li>
                 }
@@ -36,9 +36,8 @@
 
 
 @code {
-    Feed feed = new();
 
-    FeedHandler feedhandler = new();
+    Feed feed = new();
 
     private async Task AddRss()
     {
