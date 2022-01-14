@@ -10,11 +10,23 @@
 
 .indexHeader {
     padding-top: 2vh;
-    padding-left: 1.5vw;
+    padding-left: 7%;
+    font-size: 2vw;
 }
 
 .indexArticle {
     border: solid black 1px;
     background-color: lightgray;
     box-shadow: 3px 3px 3px grey;
+}
+
+@media (max-width: 641px) {
+    .indexHeader {
+        font-size: 1em;
+        padding-left: 4%;
+    }
+
+    .articleGrid {
+        width: 95vw;
+    }
 }
