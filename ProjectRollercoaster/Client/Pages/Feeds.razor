@@ -1,0 +1,71 @@
+﻿@page "/feeds"
+@inject IFeedService FeedService
+
+<PageTitle>Feeds</PageTitle>
+
+
+<div class="feedPage">
+
+    <section>
+        <h1>Manage your feeds</h1>
+        <br />
+
+        <EditForm Model="feed" OnValidSubmit="AddRss">
+            <div class=addFeedContainer>
+                <div class="rssInput"><InputText id="rssAdd" @bind-Value="feed.RssLink" class="form-control col-md-6"></InputText></div>
+                <button type="submit" class="btn btn-primary">Add feed</button>
+            </div>
+        </EditForm>
+
+        <div class=removeFeedContainer>
+
+            <ul>
+                @foreach (var item in FeedService.Feeds)
+                {
+                    <li class="removeRow">
+
+                        <div class="linkText">@item.RssLink</div> <button class="btn btn-danger" id="removeButton" @onclick="() => RemoveRss(item.Id)">Remove</button>
+
+                    </li>
+                }
+            </ul>
+        </div>
+    </section>
+</div>
+
+
+
+@code {
+    Feed feed = new();
+
+    FeedHandler feedhandler = new();
+
+    private async Task AddRss()
+    {
+        var failOrSuccess = await FeedService.AddFeed(feed);
+
+        if (!failOrSuccess)
+        {
+            throw new Exception("invalid rss feed");
+        }
+
+        await ReloadFeeds();
+    }
+    private async void RemoveRss(int id)
+    {
+        FeedService.RemoveFeed(id);
+        await ReloadFeeds();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await FeedService.LoadAllFeeds();
+    }
+
+    private async Task ReloadFeeds()
+    {
+        await FeedService.LoadAllFeeds();
+        StateHasChanged();
+    }
+
+}

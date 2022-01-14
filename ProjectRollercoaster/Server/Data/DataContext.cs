@@ -5,9 +5,11 @@
 
     public class DataContext : DbContext
     {
-        public DbSet<UnitTest> UnitTests { get; set; }
+        //public DbSet<UnitTest> UnitTests { get; set; }
 
         public DbSet<User> Users { get; set; }
+
+        public DbSet<Feed> Feeds { get; set; }
 
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {

@@ -7,7 +7,7 @@
 <h1 class=indexHeader>Todays news</h1>
 <div class="articleGrid">
     <div class="indexArticle">
-     <p>@feed.PublishDate</p>
+     <p>@feed.RssLink</p>
     </div>
     <article class="indexArticle">
         <h1></h1>
@@ -15,6 +15,7 @@
     <article class="indexArticle">
         <h1></h1>
     </article>
+   
 </div>
 
 @code {
@@ -22,6 +23,6 @@
 
     protected override async Task OnInitializedAsync()
     {
-        feed = await FirstFeedService.GetFeed();
+        //feed = await FirstFeedService.GetFeed();
     }
 }

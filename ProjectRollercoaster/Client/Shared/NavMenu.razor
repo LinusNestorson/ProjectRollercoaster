@@ -2,29 +2,29 @@
 @inject AuthenticationStateProvider AuthStateProvider
 @inject NavigationManager NavigationManager
 
-<div class="nameContainer">
-    <a class="navbar-brand" href=""><UserInfo /></a>
+<div class="navHeader">
+    <a class="userInfoContainer" href=""><UserInfo /></a>
+    <div class=hamburgerWrapper>
     <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
-        <span class="navbar-toggler-icon"></span>
+        <img class="hamburgerMenu" src="images/Hamburger.svg" alt='hamburgermenu' />
     </button>
+    </div>
 </div>
 
-<div class="sideNav" @onclick="ToggleNavMenu">
-
-    <div class="nav-item px-3">
-        <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-            <span class="oi oi-home" aria-hidden="true"></span> Home
-        </NavLink>
-    </div>
-    <AuthorizeView>
-        <Authorized>
-            <div class="nav-item px-3">
-                <NavLink class="nav-link" href="settings">
-                    <span class="oi oi-plus" aria-hidden="true"></span> Manage Feeds
-                </NavLink>
-            </div>
-            <nav class="sideNav">
-
+<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+    <nav class="flex-column">
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span> Home
+            </NavLink>
+        </div>
+        <AuthorizeView>
+            <Authorized>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="feeds">
+                        <span class="oi oi-plus" aria-hidden="true"></span> Manage Feeds
+                    </NavLink>
+                </div>
                 <div class="subscriptionSection">
                     <h3 class="subText">Subscriptions</h3>
                     <div class="nav-item px-3">
@@ -33,29 +33,27 @@
                         </NavLink>
                     </div>
                 </div>
-                <div class="bottomOptions">
-                    <div class="nav-item px-3">
-                        <NavLink class="nav-link" href="setting">
-                            <span class="oi oi-list-rich" aria-hidden="true"></span> Settings
-                        </NavLink>
-                    </div>
-                    <div class="nav-item px-3">
-                        <a class="nav-link" @onclick="Logout" style="cursor: pointer;">
-                            <span class="oi oi-account-logout" aria-hidden="true"></span> Logout
-                        </a>
-                    </div>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="setting">
+                        <span class="oi oi-list-rich" aria-hidden="true"></span> Settings
+                    </NavLink>
                 </div>
-            </nav>
-        </Authorized>
-        <NotAuthorized>
-            <div class="nav-item px-3">
-                <NavLink class="nav-link" href="register">
-                    <span class="oi oi-pencil" aria-hidden="true"></span> Register
-                </NavLink>
-            </div>
-        </NotAuthorized>
-    </AuthorizeView>
+                <div class="nav-item px-3">
+                    <a class="nav-link" @onclick="Logout" style="cursor: pointer;">
+                        <span class="oi oi-account-logout" aria-hidden="true"></span> Logout
+                    </a>
 
+                </div>
+            </Authorized>
+            <NotAuthorized>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="register">
+                        <span class="oi oi-pencil" aria-hidden="true"></span> Register
+                    </NavLink>
+                </div>
+            </NotAuthorized>
+        </AuthorizeView>
+    </nav>
 </div>
 
     @code {
