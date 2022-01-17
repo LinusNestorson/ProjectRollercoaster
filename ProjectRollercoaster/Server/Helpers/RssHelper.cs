@@ -37,21 +37,26 @@ namespace ProjectRollercoaster.Server.Helpers
             return true;
         }
 
-        public Feed GetRssInfo(string url)
+        public Feed GetRssInfo(string url, User user)
         {
             Feed feedObject = new();
+            List<Feed> ListOfLatestFeeds = new List<Feed>();
 
             feedObject.Link = url;
             var reader = XmlReader.Create(url);
             var feed = SyndicationFeed.Load(reader);
+
             foreach (SyndicationItem item in feed.Items)
             {
                 feedObject.Title = item.Title.Text;
                 feedObject.Content = item.Summary.Text;
                 feedObject.PublishDate = item.PublishDate.ToString();
+                feedObject.User = user;
+
+                ListOfLatestFeeds.Add(feedObject);
             }
 
-            return feedObject;
+            return ListOfLatestFeeds.First();
         }
 
         public async Task<bool> DoesRssExistInDb(string urlTest)

@@ -92,14 +92,11 @@ namespace ProjectRollercoaster.Server.Migrations
 
             modelBuilder.Entity("ProjectRollercoaster.Shared.Feed", b =>
                 {
-                    b.HasOne("ProjectRollercoaster.Shared.User", null)
-                        .WithMany("Feeds")
+                    b.HasOne("ProjectRollercoaster.Shared.User", "User")
+                        .WithMany()
                         .HasForeignKey("UserId");
-                });
 
-            modelBuilder.Entity("ProjectRollercoaster.Shared.User", b =>
-                {
-                    b.Navigation("Feeds");
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

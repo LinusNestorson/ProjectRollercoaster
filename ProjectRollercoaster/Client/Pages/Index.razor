@@ -1,28 +1,23 @@
 ﻿@page "/"
-@inject IFeedService FirstFeedService
+@inject IFeedService FeedService
 @attribute [Authorize]
 
 <PageTitle>Index</PageTitle>
 
 <h1 class=indexHeader>Todays news</h1>
 <div class="articleGrid">
-    <div class="indexArticle">
-     <p>@feed.Link</p>
+    @foreach (var feed in FeedService.Feeds)
+   {
+     <div class="indexArticle">
+     <p>@feed.Content</p>
     </div>
-    <article class="indexArticle">
-        <h1></h1>
-    </article>
-    <article class="indexArticle">
-        <h1></h1>
-    </article>
-   
+   }
 </div>
 
 @code {
-    private Feed feed = new();
 
     protected override async Task OnInitializedAsync()
     {
-        //feed = await FirstFeedService.GetFeed();
+        await FeedService.LoadAllFeeds();
     }
 }

@@ -29,7 +29,7 @@
             if (!string.IsNullOrEmpty(authToken))
             {
                 identity = new ClaimsIdentity(ParseClaimsFromJwt(authToken), "jwt");
-                _http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", authToken);
+                _http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", authToken.Replace("\"", ""));
             }
             var user = new ClaimsPrincipal(identity);
             var state = new AuthenticationState(user);

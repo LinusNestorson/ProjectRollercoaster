@@ -12,8 +12,8 @@ using ProjectRollercoaster.Server.Data;
 namespace ProjectRollercoaster.Server.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220114125509_AddedColumnsToFeed")]
-    partial class AddedColumnsToFeed
+    [Migration("20220117105543_firstMigration")]
+    partial class firstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -44,7 +44,7 @@ namespace ProjectRollercoaster.Server.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -94,14 +94,13 @@ namespace ProjectRollercoaster.Server.Migrations
 
             modelBuilder.Entity("ProjectRollercoaster.Shared.Feed", b =>
                 {
-                    b.HasOne("ProjectRollercoaster.Shared.User", null)
-                        .WithMany("Feeds")
-                        .HasForeignKey("UserId");
-                });
+                    b.HasOne("ProjectRollercoaster.Shared.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-            modelBuilder.Entity("ProjectRollercoaster.Shared.User", b =>
-                {
-                    b.Navigation("Feeds");
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }
