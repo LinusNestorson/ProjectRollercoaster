@@ -1,7 +1,3 @@
-..blazored-toast-container {
-    z-index: 5;
-}
-
 .mainLayout {
     background-color: #f4f4f4;
 }
@@ -19,6 +15,8 @@ main {
 
 .sidebar {
     background-color: #2e2e2e;
+    position: sticky;
+    top: 0;
 }
 
 .top-row {
@@ -28,6 +26,8 @@ main {
     height: 3.5rem;
     display: flex;
     align-items: center;
+    position: sticky;
+    top: 0;
 }
 
     .top-row ::deep a, .top-row ::deep .btn-link {

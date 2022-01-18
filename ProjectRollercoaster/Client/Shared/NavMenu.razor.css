@@ -13,6 +13,35 @@
     background-color: #2e2e2e
 }
 
+.navGrid {
+    display: grid;
+    grid-template-areas: "top"
+        "lowerTop"
+        "mid"
+        "bottom";
+}
+
+.topSection {
+    grid-area: top;
+    height: 5vh;
+}
+
+.lowerTopSection {
+    grid-area: lowerTop;
+    height: 5vh;
+}
+
+
+.subscriptionSection {
+    grid-area: mid;
+    height: 70vh;
+}
+
+.managementOptions {
+    grid-area: bottom;
+    height: 20vh;
+}
+
 .hamburgerWrapper {
     display: flex;
 }
@@ -23,10 +52,14 @@
 }
 
 .subText {
-    padding-top: 8vh;
+    padding-top: 4vh;
     color: white;
     font-size: 2em;
     padding-left: 1em;
+}
+
+.managementOptions {
+    height: 50vh;
 }
 
 .navItem {
