@@ -1,19 +1,29 @@
 ﻿@inject IFeedService FeedService
+@inject ISpecificFeedService SpecificFeedService
+@implements IDisposable
 
 <div class=subSection>
     @foreach (var item in FeedService.Feeds)
     {
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="newsfeed">
-                 <p>@item.Link</p>
+                <p @onclick="() => SpecificFeedService.GetSpecificFeed(item.Link)">@item.Name</p>
             </NavLink>
         </div>
     }
 </div>
 
 @code {
-    protected override async Task OnInitializedAsync()
+
+    protected override void OnInitialized()
     {
-        await FeedService.LoadAllFeeds();
+        FeedService.OnChange += StateHasChanged;
     }
+
+    public void Dispose()
+    {
+        FeedService.OnChange -= StateHasChanged;
+    }
+
+
 }

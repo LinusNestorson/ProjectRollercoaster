@@ -10,10 +10,14 @@
     public class Feed
     {
         public int Id { get; set; }
-        public string? Title { get; set; }
-        public string? Content { get; set; }
+
+        [Required(ErrorMessage = "Please enter an valid rss link")]
         public string? Link { get; set; }
-        public string? PublishDate { get; set; }
+
+        [Required(ErrorMessage = "Please enter a name of your choice")]
+        [StringLength(12, ErrorMessage = "Name is too long (max 12 characters")]
+        public string? Name { get; set; }
+
         public User? User { get; set; }
     }
 }

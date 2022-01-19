@@ -37,12 +37,24 @@ namespace ProjectRollercoaster.Server.Helpers
             return true;
         }
 
-        public Feed GetRssInfo(string url, User user)
+        public Feed AddRssInfo(string url, string feedName, User user)
         {
             Feed feedObject = new();
-            List<Feed> ListOfLatestFeeds = new List<Feed>();
 
             feedObject.Link = url;
+
+            feedObject.Name = feedName;
+
+            feedObject.User = user;
+
+            return feedObject;
+        }
+
+        public List<FeedContent> GetRssContent(string url)
+        {
+            FeedContent feedObject = new();
+            List<FeedContent> ListOfLatestFeeds = new List<FeedContent>();
+
             var reader = XmlReader.Create(url);
             var feed = SyndicationFeed.Load(reader);
 
@@ -51,12 +63,11 @@ namespace ProjectRollercoaster.Server.Helpers
                 feedObject.Title = item.Title.Text;
                 feedObject.Content = item.Summary.Text;
                 feedObject.PublishDate = item.PublishDate.ToString();
-                feedObject.User = user;
 
                 ListOfLatestFeeds.Add(feedObject);
             }
 
-            return ListOfLatestFeeds.First();
+            return ListOfLatestFeeds;
         }
 
         public async Task<bool> DoesRssExistInDb(string urlTest)

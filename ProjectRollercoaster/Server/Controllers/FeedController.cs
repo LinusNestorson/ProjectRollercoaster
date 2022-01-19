@@ -58,15 +58,14 @@
             var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
 
-            //var user = await _utilityHelper.GetUser();
             var dbFeed = await _context.Feeds.FirstOrDefaultAsync(f => f.Link == feed.Link);
 
             if (check && dbFeed == null)
             {
-                var feedObject = xmlHelpers.GetRssInfo(feed.Link, user);
+                var feedObject = xmlHelpers.AddRssInfo(feed.Link, feed.Name, user);
                 _context.Feeds.Add(feedObject);
                 await _context.SaveChangesAsync();
-                return Ok(await _context.Feeds.ToListAsync());
+                return Ok();
             }
             else
             {

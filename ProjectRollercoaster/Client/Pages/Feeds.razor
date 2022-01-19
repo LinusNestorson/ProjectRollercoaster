@@ -12,8 +12,18 @@
         <br />
 
         <EditForm Model="feed" OnValidSubmit="AddRss">
+            <DataAnnotationsValidator></DataAnnotationsValidator>
             <div class=addFeedContainer>
-                <div class="rssInput"><InputText id="rssAdd" @bind-Value="feed.Link" class="form-control col-md-6"></InputText></div>
+                <div class="rssInput">
+                    <label for="rssLinkAdd" class="required">Link:</label>
+                    <InputText id="rssLinkAdd" @bind-Value="feed.Link" class="form-control col-md-6">Link</InputText>
+                    <ValidationMessage For="@(() => feed.Link)" />
+                </div>
+                <div class="rssInput">
+                    <label for="rssNameAdd" class="required">Chosen name of feed:</label>
+                    <InputText id="rssNameAdd" @bind-Value="feed.Name" class="form-control col-md-6"></InputText>
+                    <ValidationMessage For="@(() => feed.Name)" />
+                </div>
                 <button type="submit" class="btn btn-primary">Add feed</button>
             </div>
         </EditForm>
@@ -24,9 +34,7 @@
                 @foreach (var item in FeedService.Feeds)
                 {
                     <li class="removeRow">
-
                         <div class="linkText">@item.Link</div> <button class="btn btn-danger" id="removeButton" @onclick="() => RemoveRss(item.Id)">Remove</button>
-
                     </li>
                 }
             </ul>
@@ -48,7 +56,6 @@
         {
             throw new Exception("invalid rss feed");
         }
-
         await ReloadFeeds();
     }
     private async void RemoveRss(int id)
@@ -60,6 +67,11 @@
     protected override async Task OnInitializedAsync()
     {
         await FeedService.LoadAllFeeds();
+    }
+
+    protected override void OnInitialized()
+    {
+
     }
 
     private async Task ReloadFeeds()

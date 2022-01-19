@@ -1,15 +1,15 @@
 ﻿@page "/newsfeed"
+@inject ISpecificFeedService SpecificFeedService
 
 
-<h3>FeedPage</h3>
-
-
+    @foreach (var feed in SpecificFeedService.SpecificFeeds)
+   {
+    <p>@feed.</p>
+ 
+   }
 
 @code {
-    private Feed feed = new();
 
-    protected override async Task OnInitializedAsync()
-    {
-        //feed = await FirstFeedService.GetFeed();
-    }
+
+
 }

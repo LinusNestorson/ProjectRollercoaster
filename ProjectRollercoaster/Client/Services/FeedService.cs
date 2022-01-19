@@ -55,6 +55,7 @@
         public async Task LoadAllFeeds()
         {
             Feeds = await _http.GetFromJsonAsync<IList<Feed>>("api/feed");
+            OnChange?.Invoke();
         }
     }
 }
