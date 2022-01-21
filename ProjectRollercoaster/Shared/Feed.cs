@@ -12,10 +12,10 @@
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Please enter an valid rss link")]
-        public string? Link { get; set; }
+        public string? Url { get; set; }
 
         [Required(ErrorMessage = "Please enter a name of your choice")]
-        [StringLength(12, ErrorMessage = "Name is too long (max 12 characters")]
+        [StringLength(15, ErrorMessage = "Name is too long (max 15 characters")]
         public string? Name { get; set; }
 
         public User? User { get; set; }

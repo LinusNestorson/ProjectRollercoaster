@@ -53,16 +53,16 @@
         public async Task<IActionResult> AddFeed(Feed feed)
         {
             RssHelper xmlHelpers = new();
-            var check = xmlHelpers.IsRssValid(feed.Link);
+            var check = xmlHelpers.IsRssValid(feed.Url);
 
             var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
 
-            var dbFeed = await _context.Feeds.FirstOrDefaultAsync(f => f.Link == feed.Link);
+            var dbFeed = await _context.Feeds.FirstOrDefaultAsync(f => f.Url == feed.Url);
 
             if (check && dbFeed == null)
             {
-                var feedObject = xmlHelpers.AddRssInfo(feed.Link, feed.Name, user);
+                var feedObject = xmlHelpers.AddRssInfo(feed.Url, feed.Name, user);
                 _context.Feeds.Add(feedObject);
                 await _context.SaveChangesAsync();
                 return Ok();

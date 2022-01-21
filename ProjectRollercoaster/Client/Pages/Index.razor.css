@@ -1,12 +1,10 @@
 ﻿.articleGrid {
     padding-top: 1vh;
     display: grid;
-    margin: auto;
-    height: 95vh;
-    width: 80vw;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    margin: auto auto auto 5vw; 
+    height: auto;
+    width: 50vw;
     row-gap: 2em;
-    overflow: scroll;
 }
 
 .indexHeader {
@@ -19,7 +17,8 @@
     border: solid black 1px;
     background-color: lightgray;
     box-shadow: 3px 3px 3px grey;
-    height: 10vh;
+    height: auto;
+    min-height: 10vh;
 }
 
 @media (max-width: 641px) {

@@ -1,13 +1,16 @@
 ﻿@inject IFeedService FeedService
+@inject IFeedContentService FeedContentService
 @inject ISpecificFeedService SpecificFeedService
+@inject NavigationManager NavigationManager
+@inject IRefreshService RefreshService
 @implements IDisposable
 
 <div class=subSection>
     @foreach (var item in FeedService.Feeds)
     {
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="newsfeed">
-                <p @onclick="() => SpecificFeedService.GetSpecificFeed(item.Link)">@item.Name</p>
+            <NavLink class="nav-link" href="feedpage">
+                <p class=titleText @onclick="() => ReNavToPage(item.Id, item.Name)">@item.Name</p>
             </NavLink>
         </div>
     }
@@ -25,5 +28,11 @@
         FeedService.OnChange -= StateHasChanged;
     }
 
+    public void ReNavToPage(int id, string name)
+    {
+        SpecificFeedService.SetTempInfoId(id, name);
+        SpecificFeedService.GetSpecificFeedContent(SpecificFeedService.TempInfo.Id);
+        RefreshService.CallRequestRefresh();
+    }
 
 }

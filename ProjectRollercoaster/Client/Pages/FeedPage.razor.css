@@ -1,0 +1,20 @@
+﻿.feedPageArticleGrid {
+    padding-top: 1vh;
+    display: grid;
+    margin: auto auto auto 5vw;
+    height: auto;
+    width: 50vw;
+    row-gap: 2em;
+}
+
+.feedPageArticle {
+    border: solid black 1px;
+    background-color: lightgray;
+    box-shadow: 3px 3px 3px grey;
+    height: auto;
+    min-height: 10vh;
+}
+
+.titleName {
+    padding-left: 2em;
+}

@@ -41,7 +41,7 @@ namespace ProjectRollercoaster.Server.Helpers
         {
             Feed feedObject = new();
 
-            feedObject.Link = url;
+            feedObject.Url = url;
 
             feedObject.Name = feedName;
 
@@ -50,29 +50,63 @@ namespace ProjectRollercoaster.Server.Helpers
             return feedObject;
         }
 
-        public List<FeedContent> GetRssContent(string url)
+        public List<FeedContent> GetRssContent(List<Feed> listOfFeeds)
         {
-            FeedContent feedObject = new();
-            List<FeedContent> ListOfLatestFeeds = new List<FeedContent>();
+            List<FeedContent> ListOfFeedsWithContent = new List<FeedContent>();
 
-            var reader = XmlReader.Create(url);
-            var feed = SyndicationFeed.Load(reader);
-
-            foreach (SyndicationItem item in feed.Items)
+            foreach (var feed in listOfFeeds)
             {
-                feedObject.Title = item.Title.Text;
-                feedObject.Content = item.Summary.Text;
-                feedObject.PublishDate = item.PublishDate.ToString();
+                var reader = XmlReader.Create(feed.Url);
+                var feedResponse = SyndicationFeed.Load(reader);
 
-                ListOfLatestFeeds.Add(feedObject);
+                var counter = 0;
+
+                foreach (SyndicationItem item in feedResponse.Items)
+                {
+                    FeedContent feedObject = new();
+                    List<string> LinkList = new();
+
+                    try
+                    {
+                        feedObject.Id = feed.Id;
+                        feedObject.Title = item.Title.Text;
+                        feedObject.Summary = item.Summary.Text;
+                        //feedObject.Content = item.Content.AttributeExtensions.Values.ToString();
+                        feedObject.PublishDate = item.PublishDate.ToString();
+
+                        if (item.Links is not null)
+                        {
+                            foreach (var link in item.Links)
+                            {
+                                if (!link.Uri.AbsoluteUri.Contains("image"))
+                                {
+                                    LinkList.Add(link.Uri.AbsoluteUri);
+                                }
+                            }
+                            feedObject.Links = LinkList;
+                        }
+
+                        ListOfFeedsWithContent.Add(feedObject);
+                        counter++;
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.Message);
+                        continue;
+                    }
+
+                    if (counter == 4)
+                    {
+                        break;
+                    }
+                }
             }
-
-            return ListOfLatestFeeds;
+            return ListOfFeedsWithContent;
         }
 
         public async Task<bool> DoesRssExistInDb(string urlTest)
         {
-            var dbFeed = await _context.Feeds.FirstOrDefaultAsync(f => f.Link == urlTest);
+            var dbFeed = await _context.Feeds.FirstOrDefaultAsync(f => f.Url == urlTest);
             if (dbFeed != null)
             {
                 return true;
@@ -81,6 +115,56 @@ namespace ProjectRollercoaster.Server.Helpers
             {
                 return false;
             }
+        }
+
+        public List<FeedContent> GetSpecificRssContent(string feedUrl)
+        {
+            var reader = XmlReader.Create(feedUrl);
+            var feedResponse = SyndicationFeed.Load(reader);
+
+            List<FeedContent> ListOfSpecificFeedsContent = new();
+
+            var counter = 0;
+
+            foreach (SyndicationItem item in feedResponse.Items)
+            {
+                FeedContent feedObject = new();
+                List<string> LinkList = new();
+
+                try
+                {
+                    feedObject.Title = item.Title.Text;
+                    feedObject.Summary = item.Summary.Text;
+                    //feedObject.Content = item.Content.AttributeExtensions.Values.ToString();
+                    feedObject.PublishDate = item.PublishDate.ToString();
+
+                    if (item.Links is not null)
+                    {
+                        foreach (var link in item.Links)
+                        {
+                            if (!link.Uri.AbsoluteUri.Contains("image"))
+                            {
+                                LinkList.Add(link.Uri.AbsoluteUri);
+                            }
+                        }
+                        feedObject.Links = LinkList;
+                    }
+
+                    ListOfSpecificFeedsContent.Add(feedObject);
+                    counter++;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    continue;
+                }
+
+                if (counter == 6)
+                {
+                    break;
+                }
+            }
+            return ListOfSpecificFeedsContent;
         }
     }
 }

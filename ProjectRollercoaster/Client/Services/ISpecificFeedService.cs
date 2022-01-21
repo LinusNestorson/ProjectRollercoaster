@@ -4,8 +4,12 @@
 
     public interface ISpecificFeedService
     {
-        IList<Feed> SpecificFeeds { get; set; }
+        IList<FeedContent> SpecificFeedContent { get; set; }
 
-        Task GetSpecificFeed(string feedLink);
+        FeedDTO TempInfo { get; set; }
+
+        Task GetSpecificFeedContent(int id);
+
+        void SetTempInfoId(int id, string name);
     }
 }
