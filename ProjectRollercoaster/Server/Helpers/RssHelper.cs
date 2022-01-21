@@ -97,7 +97,7 @@ namespace ProjectRollercoaster.Server.Helpers
                         continue;
                     }
 
-                    if (counter == 4)
+                    if (counter == 6)
                     {
                         break;
                     }

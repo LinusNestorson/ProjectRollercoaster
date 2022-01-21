@@ -10,13 +10,15 @@
     {
 
         <div class="feedPageArticle">
-            <p>@feed.Title</p>
-            <p>@feed.Summary</p>
-            <p>@feed.PublishDate</p>
-            @foreach (var link in feed.Links)
-            {
-                <a href=@link target="_blank">@link</a>
-            }
+            <div class="feedPageArticleContent">
+                <p>@feed.Title</p>
+                <p>@feed.Summary</p>
+                <p>@feed.PublishDate</p>
+                @foreach (var link in feed.Links)
+                {
+                    <a href=@link target="_blank">@link</a>
+                }
+            </div>
         </div>
     }
 </div>
@@ -34,5 +36,5 @@
         RefreshService.RefreshRequest += StateHasChanged;
     }
 
-    
+
 }

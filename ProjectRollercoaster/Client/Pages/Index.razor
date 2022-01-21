@@ -10,13 +10,15 @@
     @foreach (var feed in FeedContentService.AllFeedsBasedOnPublish)
     {
         <div class="indexArticle">
-            <p>@feed.Title</p>
-            <p>@feed.Summary</p>
-            <p>@feed.PublishDate</p>
-            @foreach (var link in feed.Links)
-            {
-                <a href=@link target="_blank">@link</a>
-            }
+            <div class="indexArticleContent">
+                <p>@feed.Title</p>
+                <p>@feed.Summary</p>
+                <p>@feed.PublishDate</p>
+                @foreach (var link in feed.Links)
+                {
+                    <a href=@link target="_blank">@link</a>
+                }
+            </div>
         </div>
     }
 </div>

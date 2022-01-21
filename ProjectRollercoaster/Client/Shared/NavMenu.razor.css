@@ -31,10 +31,9 @@
     height: 5vh;
 }
 
-
 .subscriptionSection {
     grid-area: mid;
-    height: 70vh;
+    height: 71vh;
 }
 
 .managementOptions {
@@ -53,13 +52,14 @@
 
 .subText {
     padding-top: 4vh;
-    color: white;
+    color: #d7d7d7;
     font-size: 2em;
     padding-left: 1em;
 }
 
 .managementOptions {
-    height: 50vh;
+    height: auto;
+    margin-bottom: 5%;
 }
 
 .navItem {
