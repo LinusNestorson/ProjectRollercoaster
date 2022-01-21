@@ -8,7 +8,7 @@
 
         FeedDTO TempInfo { get; set; }
 
-        Task GetSpecificFeedContent(int id);
+        void GetSpecificFeedContent(int id);
 
         void SetTempInfoId(int id, string name);
     }

@@ -7,7 +7,7 @@
 
 <h1 class=indexHeader>Todays news</h1>
 <div class="articleGrid">
-    @foreach (var feed in FeedContentService.AllFeedContent)
+    @foreach (var feed in FeedContentService.AllFeedsBasedOnPublish)
     {
         <div class="indexArticle">
             <p>@feed.Title</p>
@@ -26,10 +26,6 @@
     protected override async Task OnInitializedAsync()
     {
         await FeedService.LoadAllFeeds();
-
-        foreach (var feed in FeedService.Feeds)
-        {
-            await FeedContentService.GetFeedContent();
-        }
+        await FeedContentService.GetFeedContent();
     }
 }

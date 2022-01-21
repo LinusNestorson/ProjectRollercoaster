@@ -50,12 +50,14 @@ namespace ProjectRollercoaster.Server.Helpers
             return feedObject;
         }
 
-        public List<FeedContent> GetRssContent(List<Feed> listOfFeeds)
+        public List<List<FeedContent>> GetRssContent(List<Feed> listOfFeeds)
         {
-            List<FeedContent> ListOfFeedsWithContent = new List<FeedContent>();
+            List<List<FeedContent>> ListWithListOfFeeds = new List<List<FeedContent>>();
 
             foreach (var feed in listOfFeeds)
             {
+                List<FeedContent> ListOfFeedsWithContent = new List<FeedContent>();
+
                 var reader = XmlReader.Create(feed.Url);
                 var feedResponse = SyndicationFeed.Load(reader);
 
@@ -100,8 +102,9 @@ namespace ProjectRollercoaster.Server.Helpers
                         break;
                     }
                 }
+                ListWithListOfFeeds.Add(ListOfFeedsWithContent);
             }
-            return ListOfFeedsWithContent;
+            return ListWithListOfFeeds;
         }
 
         public async Task<bool> DoesRssExistInDb(string urlTest)

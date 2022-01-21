@@ -25,7 +25,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        await SpecificFeedService.GetSpecificFeedContent(SpecificFeedService.TempInfo.Id);
+        await Task.Run(() => SpecificFeedService.GetSpecificFeedContent(SpecificFeedService.TempInfo.Id));
         Refresh();
     }
 
