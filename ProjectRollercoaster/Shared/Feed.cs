@@ -18,6 +18,8 @@
         [StringLength(15, ErrorMessage = "Name is too long (max 15 characters")]
         public string? Name { get; set; }
 
+        public string? Image { get; set; }
+
         public User? User { get; set; }
     }
 }
