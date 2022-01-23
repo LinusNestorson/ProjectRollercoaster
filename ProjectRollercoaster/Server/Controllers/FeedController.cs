@@ -10,16 +10,20 @@
     using DocumentFormat.OpenXml.Office.CustomUI;
     using System.ServiceModel.Syndication;
     using System.Xml;
+    using System.Security.Claims;
 
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class FeedController : ControllerBase
     {
         private readonly DataContext _context;
+        private readonly IUtilityHelper _utilityHelper;
 
-        public FeedController(DataContext context)
+        public FeedController(DataContext context, IUtilityHelper utilityHelper)
         {
             _context = context;
+            _utilityHelper = utilityHelper;
         }
 
         //[HttpGet]
@@ -48,16 +52,20 @@
         [HttpPost]
         public async Task<IActionResult> AddFeed(Feed feed)
         {
-            RssCheck xmlCheck = new();
-            var check = xmlCheck.IsRssValid(feed.RssLink);
+            RssHelper xmlHelpers = new();
+            var check = xmlHelpers.IsRssValid(feed.Url);
 
-            var dbFeed = await _context.Feeds.FirstOrDefaultAsync(f => f.RssLink == feed.RssLink);
+            var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+
+            var dbFeed = await _context.Feeds.FirstOrDefaultAsync(f => f.Url == feed.Url);
 
             if (check && dbFeed == null)
             {
-                _context.Feeds.Add(feed);
+                var feedObject = xmlHelpers.AddRssInfo(feed.Url, feed.Name, user);
+                _context.Feeds.Add(feedObject);
                 await _context.SaveChangesAsync();
-                return Ok(await _context.Feeds.ToListAsync());
+                return Ok();
             }
             else
             {

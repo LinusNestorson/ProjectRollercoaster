@@ -11,6 +11,8 @@
 
         public DbSet<Feed> Feeds { get; set; }
 
+        //public DbSet<UserFeed> UserFeeds { get; set; }
+
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
         }

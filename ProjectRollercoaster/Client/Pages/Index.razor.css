@@ -1,23 +1,31 @@
 ﻿.articleGrid {
     padding-top: 1vh;
     display: grid;
-    margin: auto;
-    height: 90vh;
-    width: 80vw;
-    grid-template-rows: 1fr 1fr 1fr;
+    margin: auto auto auto 10vw;
+    height: auto;
+    width: 60vw;
     row-gap: 2em;
+    padding-bottom: 4%;
 }
 
 .indexHeader {
     padding-top: 2vh;
-    padding-left: 7%;
+    padding-left: 10vw;
     font-size: 2vw;
+}
+
+.indexArticleContent {
+    width: 80%;
+    height: 100%;
+    margin: 1% auto 1% 2%;
 }
 
 .indexArticle {
     border: solid black 1px;
     background-color: lightgray;
     box-shadow: 3px 3px 3px grey;
+    height: auto;
+    min-height: 10vh;
 }
 
 @media (max-width: 641px) {

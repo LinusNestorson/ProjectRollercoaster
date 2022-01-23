@@ -1,0 +1,38 @@
+﻿@inject IFeedService FeedService
+@inject IFeedContentService FeedContentService
+@inject ISpecificFeedService SpecificFeedService
+@inject NavigationManager NavigationManager
+@inject IRefreshService RefreshService
+@implements IDisposable
+
+<div class=subSection>
+    @foreach (var item in FeedService.Feeds)
+    {
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="feedpage">
+                <span class="titleText" @onclick="() => ReNavToPage(item.Id, item.Name)">@item.Name</span>
+            </NavLink>
+        </div>
+    }
+</div>
+
+@code {
+
+    protected override void OnInitialized()
+    {
+        FeedService.OnChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        FeedService.OnChange -= StateHasChanged;
+    }
+
+    public void ReNavToPage(int id, string name)
+    {
+        SpecificFeedService.SetTempInfoId(id, name);
+        SpecificFeedService.GetSpecificFeedContent(SpecificFeedService.TempInfo.Id);
+        RefreshService.CallRequestRefresh();
+    }
+
+}

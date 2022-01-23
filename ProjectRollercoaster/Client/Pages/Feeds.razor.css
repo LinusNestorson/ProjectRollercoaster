@@ -11,12 +11,13 @@ section {
 
 .addFeedContainer {
     display: grid;
-    grid-template-columns: 70% 30%;
-    height: 10vh;
+    grid-template-rows: 7vh 7vh 7vh;
+    height: 21vh;
 }
 
 .rssInput {
     margin: auto 6vw auto 0;
+    width: 20vw;
 }
 
 .removeFeedContainer {
@@ -51,8 +52,8 @@ ul {
     padding: 0;
 }
 
-.btn  {
-   height: 4vh;
-   width: 8vw;
-   margin: auto;
+.btn {
+    height: 4vh;
+    width: 8vw;
+    margin: auto 6vw auto 0;
 }

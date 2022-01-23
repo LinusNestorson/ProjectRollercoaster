@@ -1,0 +1,18 @@
+﻿.subSection {
+    height: 40em;
+}
+
+.titleText {
+    font-size: 1.5rem;
+    color: #d7d7d7 !important;
+}
+
+.nav-item {
+    border-radius: 5px;
+}
+
+    .nav-item:hover {
+        background-color: #97979726 !important;
+        width: 80%;
+        margin: auto;
+    }

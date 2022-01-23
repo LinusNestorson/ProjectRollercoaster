@@ -1,16 +1,40 @@
-﻿@page "/feed"
+﻿@page "/feedpage"
+@inject IFeedContentService FeedContentService
+@inject ISpecificFeedService SpecificFeedService
+@inject IRefreshService RefreshService
 
+<h2 class=titleName>@SpecificFeedService.TempInfo.Name</h2>
 
-<h3>FeedPage</h3>
+<div class="feedPageArticleGrid">
+    @foreach (var feed in SpecificFeedService.SpecificFeedContent)
+    {
 
-
-<FeedContent />
+        <div class="feedPageArticle">
+            <div class="feedPageArticleContent">
+                <p>@feed.Title</p>
+                <p>@feed.Summary</p>
+                <p>@feed.PublishDate</p>
+                @foreach (var link in feed.Links)
+                {
+                    <a href=@link target="_blank">@link</a>
+                }
+            </div>
+        </div>
+    }
+</div>
 
 @code {
-    private Feed feed = new();
 
     protected override async Task OnInitializedAsync()
     {
-        //feed = await FirstFeedService.GetFeed();
+        await Task.Run(() => SpecificFeedService.GetSpecificFeedContent(SpecificFeedService.TempInfo.Id));
+        Refresh();
     }
+
+    private void Refresh()
+    {
+        RefreshService.RefreshRequest += StateHasChanged;
+    }
+
+
 }

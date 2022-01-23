@@ -9,7 +9,7 @@
 
         event Action OnChange;
 
-        Task<bool> AddFeed(Feed rssLink);
+        Task<bool> AddFeed(Feed feed);
 
         void RemoveFeed(int id);
 

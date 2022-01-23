@@ -30,7 +30,13 @@ namespace ProjectRollercoaster.Server.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("RssLink")
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("UserId")
@@ -51,29 +57,25 @@ namespace ProjectRollercoaster.Server.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<DateTime>("DateCreated")
+                    b.Property<DateTime?>("DateCreated")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsConfirmed")
+                    b.Property<bool?>("IsConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<byte[]>("PasswordHash")
-                        .IsRequired()
                         .HasColumnType("varbinary(max)");
 
                     b.Property<byte[]>("PasswordSalt")
-                        .IsRequired()
                         .HasColumnType("varbinary(max)");
 
                     b.Property<string>("Username")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -83,14 +85,11 @@ namespace ProjectRollercoaster.Server.Migrations
 
             modelBuilder.Entity("ProjectRollercoaster.Shared.Feed", b =>
                 {
-                    b.HasOne("ProjectRollercoaster.Shared.User", null)
-                        .WithMany("Feeds")
+                    b.HasOne("ProjectRollercoaster.Shared.User", "User")
+                        .WithMany()
                         .HasForeignKey("UserId");
-                });
 
-            modelBuilder.Entity("ProjectRollercoaster.Shared.User", b =>
-                {
-                    b.Navigation("Feeds");
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

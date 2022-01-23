@@ -1,7 +1,7 @@
 ﻿.navHeaderText {
     font-size: 3vh;
     margin: auto auto auto 20%;
-    color: white;
+    color: #d7d7d7;
 }
 
 @media (max-width: 641px) {

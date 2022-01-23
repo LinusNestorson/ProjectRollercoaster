@@ -1,5 +1,6 @@
 ﻿@page "/feeds"
 @inject IFeedService FeedService
+@attribute [Authorize]
 
 <PageTitle>Feeds</PageTitle>
 
@@ -11,9 +12,27 @@
         <br />
 
         <EditForm Model="feed" OnValidSubmit="AddRss">
+            <DataAnnotationsValidator></DataAnnotationsValidator>
             <div class=addFeedContainer>
-                <div class="rssInput"><InputText id="rssAdd" @bind-Value="feed.RssLink" class="form-control col-md-6"></InputText></div>
-                <button type="submit" class="btn btn-primary">Add feed</button>
+                <div class="rssInput">
+                    <label for="rssLinkAdd" class="required">Url:</label>
+                    <InputText id="rssLinkAdd" @bind-Value="feed.Url" class="form-control col-md-6">Link</InputText>
+                    <ValidationMessage For="@(() => feed.Url)" />
+                </div>
+                <div class="rssInput">
+                    <label for="rssNameAdd" class="required">Chosen name of feed:</label>
+                    <InputText id="rssNameAdd" @bind-Value="feed.Name" class="form-control col-md-6"></InputText>
+                    <ValidationMessage For="@(() => feed.Name)" />
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-primary">Add feed</button>
+                    <button class="btn btn-primary" @onclick="@(() => { showModal = true; })">Show Dialog!</button>
+                    @if (showModal)
+                    {
+                        <PictureModal OnClose="() => { showModal = false; }" />
+
+                    }
+                </div>
             </div>
         </EditForm>
 
@@ -23,22 +42,20 @@
                 @foreach (var item in FeedService.Feeds)
                 {
                     <li class="removeRow">
-
-                        <div class="linkText">@item.RssLink</div> <button class="btn btn-danger" id="removeButton" @onclick="() => RemoveRss(item.Id)">Remove</button>
-
+                        <div class="linkText">@item.Url</div> <button class="btn btn-danger" id="removeButton" @onclick="() => RemoveRss(item.Id)">Remove</button>
                     </li>
                 }
             </ul>
         </div>
+
     </section>
+
 </div>
 
-
-
 @code {
-    Feed feed = new();
+    public bool showModal = false;
 
-    FeedHandler feedhandler = new();
+    Feed feed = new();
 
     private async Task AddRss()
     {
@@ -48,7 +65,6 @@
         {
             throw new Exception("invalid rss feed");
         }
-
         await ReloadFeeds();
     }
     private async void RemoveRss(int id)

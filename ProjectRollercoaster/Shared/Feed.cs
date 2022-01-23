@@ -9,8 +9,15 @@
 
     public class Feed
     {
-        [Key]
         public int Id { get; set; }
-        public string? RssLink { get; set; }
+
+        [Required(ErrorMessage = "Please enter an valid rss link")]
+        public string? Url { get; set; }
+
+        [Required(ErrorMessage = "Please enter a name of your choice")]
+        [StringLength(15, ErrorMessage = "Name is too long (max 15 characters")]
+        public string? Name { get; set; }
+
+        public User? User { get; set; }
     }
 }
