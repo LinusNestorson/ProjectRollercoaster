@@ -24,7 +24,15 @@
                     <InputText id="rssNameAdd" @bind-Value="feed.Name" class="form-control col-md-6"></InputText>
                     <ValidationMessage For="@(() => feed.Name)" />
                 </div>
-                <button type="submit" class="btn btn-primary">Add feed</button>
+                <div>
+                    <button type="submit" class="btn btn-primary">Add feed</button>
+                    <button class="btn btn-primary" @onclick="@(() => { showModal = true; })">Show Dialog!</button>
+                    @if (showModal)
+                    {
+                        <PictureModal OnClose="() => { showModal = false; }" />
+
+                    }
+                </div>
             </div>
         </EditForm>
 
@@ -39,12 +47,13 @@
                 }
             </ul>
         </div>
+
     </section>
+
 </div>
 
-
-
 @code {
+    public bool showModal = false;
 
     Feed feed = new();
 
