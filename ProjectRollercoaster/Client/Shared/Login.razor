@@ -3,23 +3,31 @@
 @inject IAuthService AuthService
 @inject IToastService ToastService
 
-Please log in below or <a href="register">register</a> for a new account.
 
+<div class="loginForm">
+    <br />
+    <div>
+Please log in below or <a href="register">register</a> for a new account.
+</div>
+<br />
 <ErrorBoundary>
-<EditForm Model="user" OnValidSubmit="HandleLogin">
+<EditForm style="width: 25em;" Model="user" OnValidSubmit="HandleLogin">
     <DataAnnotationsValidator></DataAnnotationsValidator>
     <div class="form-group">
         <label for="email">Email</label>
         <InputText id="email" @bind-Value="user.Email" class="form-control"></InputText>
     </div>
+    <br />
     <div class="form-group">
         <label for="password">Password</label>
         <InputText id="password" @bind-Value="user.Password" class="form-control" type="password"></InputText>
     </div>
-    <button type="submit" class="btn btn-primary">Login</button>
+    <br />
+    <button type="submit" class="btn btn-outline-primary">Login</button>
     <ValidationSummary></ValidationSummary>
 </EditForm>
 </ErrorBoundary>
+</div>
 
 
 

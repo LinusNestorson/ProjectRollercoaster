@@ -23,17 +23,17 @@
 
 .topSection {
     grid-area: top;
-    height: 5vh;
+    height: 4em;
 }
 
 .lowerTopSection {
     grid-area: lowerTop;
-    height: 5vh;
+    height: 4em;
 }
 
 .subscriptionSection {
     grid-area: mid;
-    height: 71vh;
+    height: 55vh;
 }
 
 .managementOptions {
@@ -54,7 +54,7 @@
     padding-top: 4vh;
     color: #d7d7d7;
     font-size: 2em;
-    padding-left: 1em;
+    padding-left: 0.7em;
 }
 
 .managementOptions {
@@ -64,6 +64,18 @@
 
 .navItem {
     background-color: #2e2e2e
+}
+
+.nav-link span {
+    display: flex;
+    justify-content: center;
+}
+
+.nav-link svg {
+    width: 2em;
+    height: 2em;
+    margin: auto;
+    color: #ff6a00;
 }
 
 /*@media (min-width: 641px) {
@@ -90,7 +102,7 @@
 
 .oi {
     width: 2rem;
-    font-size: 1.1rem;
+    font-size: 1.5rem;
     vertical-align: text-top;
     top: -2px;
 }

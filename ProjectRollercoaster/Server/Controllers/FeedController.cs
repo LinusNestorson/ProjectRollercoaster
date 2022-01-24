@@ -89,7 +89,8 @@
         [HttpGet]
         public async Task<IActionResult> GetAllFeeds()
         {
-            var dbFeeds = await _context.Feeds.ToListAsync();
+            var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var dbFeeds = await _context.Feeds.Where(f => f.User.Id == userId).ToListAsync();
             return Ok(dbFeeds);
         }
     }

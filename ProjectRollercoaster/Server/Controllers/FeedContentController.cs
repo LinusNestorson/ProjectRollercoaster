@@ -28,7 +28,9 @@
         {
             RssHelper xmlHelpers = new();
 
-            var listOfFeeds = await _context.Feeds.ToListAsync();
+            var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            var listOfFeeds = await _context.Feeds.Where(f => f.User.Id == userId).ToListAsync();
 
             var listOfFeedObjectContent = xmlHelpers.GetRssContent(listOfFeeds);
 
