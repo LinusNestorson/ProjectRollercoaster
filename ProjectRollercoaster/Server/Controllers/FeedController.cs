@@ -52,17 +52,16 @@
         [HttpPost]
         public async Task<IActionResult> AddFeed(Feed feed)
         {
-            RssHelper xmlHelpers = new();
-            var check = xmlHelpers.IsRssValid(feed.Url);
-
+            RssHelper rssHelper = new(_context);
             var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var check = rssHelper.IsRssValid(feed.Url, userId);
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
 
             var dbFeed = await _context.Feeds.FirstOrDefaultAsync(f => f.Url == feed.Url);
 
             if (check && dbFeed == null)
             {
-                var feedObject = xmlHelpers.AddRssInfo(feed.Url, feed.Name, feed.Image, user);
+                var feedObject = rssHelper.AddRssInfo(feed.Url, feed.Name, feed.Image, user);
                 _context.Feeds.Add(feedObject);
                 await _context.SaveChangesAsync();
                 return Ok();

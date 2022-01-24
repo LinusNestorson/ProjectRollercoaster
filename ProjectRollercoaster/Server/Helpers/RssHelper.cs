@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProjectRollercoaster.Server.Data;
 using ProjectRollercoaster.Shared;
+using System.Security.Claims;
 using System.ServiceModel.Syndication;
 using System.Xml;
 
@@ -11,9 +12,14 @@ namespace ProjectRollercoaster.Server.Helpers
     {
         private readonly DataContext _context;
 
-        public bool IsRssValid(string urlTest)
+        public RssHelper(DataContext context)
         {
-            if (DoesRssExist(urlTest))
+            _context = context;
+        }
+
+        public bool IsRssValid(string urlTest, int userId)
+        {
+            if (DoesRssExist(urlTest) && DoesRssExistInDb(urlTest, userId))
             {
                 return true;
             }
@@ -110,9 +116,9 @@ namespace ProjectRollercoaster.Server.Helpers
             return ListWithListOfFeeds;
         }
 
-        public async Task<bool> DoesRssExistInDb(string urlTest)
+        public bool DoesRssExistInDb(string urlTest, int userId)
         {
-            var dbFeed = await _context.Feeds.FirstOrDefaultAsync(f => f.Url == urlTest);
+            var dbFeed = _context.Feeds.Include(x => x.User).FirstOrDefaultAsync(f => f.Url == urlTest && f.User.Id == userId);
             if (dbFeed != null)
             {
                 return true;
