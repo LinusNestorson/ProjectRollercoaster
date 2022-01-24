@@ -12,9 +12,9 @@
     @foreach (var item in FeedService.Feeds)
     {
         <div class="nav-item px-3">
-            <NavLink class="@item.Image" href="feedpage">
-                <i class="far fa-futbol"></i>
-                <span class="titleText" @onclick="() => ReNavToPage(item.Id, item.Name)">@item.Name</span>
+            <NavLink style="text-decoration:none;" class="navContainer" href="feedpage">
+                <i class=@item.Image></i>
+                <span class="titleText" @onclick="() => ReNavToPage(item.Id, item.Name)">&nbsp; @item.Name</span>
             </NavLink>
         </div>
     }

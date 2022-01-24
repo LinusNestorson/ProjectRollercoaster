@@ -37,13 +37,15 @@ namespace ProjectRollercoaster.Server.Helpers
             return true;
         }
 
-        public Feed AddRssInfo(string url, string feedName, User user)
+        public Feed AddRssInfo(string url, string feedName, string image, User user)
         {
             Feed feedObject = new();
 
             feedObject.Url = url;
 
             feedObject.Name = feedName;
+
+            feedObject.Image = image;
 
             feedObject.User = user;
 
@@ -72,6 +74,7 @@ namespace ProjectRollercoaster.Server.Helpers
                     {
                         feedObject.Id = feed.Id;
                         feedObject.Title = item.Title.Text;
+                        feedObject.Image = feed.Image;
                         feedObject.Summary = item.Summary.Text;
                         //feedObject.Content = item.Content.AttributeExtensions.Values.ToString();
                         feedObject.PublishDate = item.PublishDate.ToString();

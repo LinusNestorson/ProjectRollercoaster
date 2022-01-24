@@ -1,18 +1,33 @@
 ﻿.subSection {
     height: 40em;
+
+}
+
+.nav-item {
+    border-radius: 5px;
+    padding-left: 1.5em !important;
+
 }
 
 .titleText {
     font-size: 1.5rem;
     color: #d7d7d7 !important;
+
 }
 
-.nav-item {
-    border-radius: 5px;
+.nav-item:hover {
+    background-color: #97979726 !important;
+    width: 95%;
+    margin: auto;
 }
 
-    .nav-item:hover {
-        background-color: #97979726 !important;
-        width: 80%;
-        margin: auto;
-    }
+.navText {
+    grid-template-columns: 1fr 1fr;
+
+}
+
+.navContainer svg{
+    width: 2em;
+    height: 1.3em;
+    color: #74ffffd9 !important;
+}

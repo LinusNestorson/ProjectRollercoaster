@@ -28,6 +28,21 @@
     min-height: 10vh;
 }
 
+.headLine {
+    display: grid;
+    width: 40vw;
+    grid-template-columns: 0.07fr 1fr;
+}
+
+    .headLine p {
+        margin: auto auto 1em 1em;
+    }
+
+    .headLine svg {
+        margin: 0.2em auto 1em 0.5em;
+
+    }
+
 @media (max-width: 641px) {
     .indexHeader {
         font-size: 1em;

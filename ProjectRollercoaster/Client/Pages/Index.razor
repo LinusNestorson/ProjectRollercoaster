@@ -11,7 +11,10 @@
     {
         <div class="indexArticle">
             <div class="indexArticleContent">
-                <p>@feed.Title</p>
+                <div class="headLine">
+                    <i class=@feed.Image></i>
+                    <p>@feed.Title</p>
+                </div>
                 <p>@feed.Summary</p>
                 <p>@feed.PublishDate</p>
                 @foreach (var link in feed.Links)

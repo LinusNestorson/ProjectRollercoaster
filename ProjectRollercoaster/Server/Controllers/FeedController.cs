@@ -62,7 +62,7 @@
 
             if (check && dbFeed == null)
             {
-                var feedObject = xmlHelpers.AddRssInfo(feed.Url, feed.Name, user);
+                var feedObject = xmlHelpers.AddRssInfo(feed.Url, feed.Name, feed.Image, user);
                 _context.Feeds.Add(feedObject);
                 await _context.SaveChangesAsync();
                 return Ok();
