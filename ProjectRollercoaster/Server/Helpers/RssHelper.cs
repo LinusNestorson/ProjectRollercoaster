@@ -79,6 +79,7 @@ namespace ProjectRollercoaster.Server.Helpers
                     try
                     {
                         feedObject.Id = feed.Id;
+                        feedObject.Name = feed.Name;
                         feedObject.Title = item.Title.Text;
                         feedObject.Image = feed.Image;
                         feedObject.Summary = item.Summary.Text;

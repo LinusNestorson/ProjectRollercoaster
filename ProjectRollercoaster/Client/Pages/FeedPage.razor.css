@@ -27,3 +27,33 @@
     padding-left: 10vw;
     font-size: 2vw;
 }
+
+.headLine {
+    display: grid;
+    width: 40vw;
+    grid-template-rows: 0.07fr 1fr;
+}
+
+    .headLine p {
+        margin: auto auto 1em 0;
+    }
+
+.imgAndName {
+    display: flex;
+    width: 30em;
+}
+
+.headerImg svg {
+    margin: auto;
+    height: 2em;
+    width: 1.5em;
+}
+
+.headerName {
+    display: flex;
+    padding-left: 1.5em;
+}
+
+.headerName h4 {
+
+}

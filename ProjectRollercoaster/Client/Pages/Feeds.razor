@@ -59,9 +59,9 @@
 
 
 
-@*                  
-<button class="btn btn-primary" @onclick="@(() => { showModal = true; })">Show Dialog!</button>    
-@if (showModal)
+@*
+    <button class="btn btn-primary" @onclick="@(() => { showModal = true; })">Show Dialog!</button>
+    @if (showModal)
     {
     <PictureModal OnSetImage=@SetImage OnClose="() => { showModal = false; }" />
 
@@ -80,6 +80,8 @@
 
     private async Task AddRss()
     {
+        MakeFirstLetterUpperCase();
+
         var failOrSuccess = await FeedService.AddFeed(feed);
 
         if (!failOrSuccess)
@@ -88,6 +90,13 @@
         }
         await ReloadFeeds();
     }
+
+    private void MakeFirstLetterUpperCase()
+    {
+
+        feed.Name = char.ToUpper(feed.Name[0]) + feed.Name.Substring(1);
+    }
+
     private async void RemoveRss(int id)
     {
         FeedService.RemoveFeed(id);

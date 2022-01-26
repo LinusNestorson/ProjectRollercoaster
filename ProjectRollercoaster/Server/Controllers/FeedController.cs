@@ -55,11 +55,9 @@
             RssHelper rssHelper = new(_context);
             var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             var check = rssHelper.IsRssValid(feed.Url, userId);
+            await Task.Delay(1000);
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
-
             var dbFeed = await _context.Feeds.FirstOrDefaultAsync(f => f.Url == feed.Url && f.User.Id == userId);
-
-            //var dbFeed = await _context.Feeds.FirstOrDefaultAsync(f => f.Url == feed.Url);
 
             if (check && dbFeed == null)
             {

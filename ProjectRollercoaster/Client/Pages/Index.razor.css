@@ -31,17 +31,28 @@
 .headLine {
     display: grid;
     width: 40vw;
-    grid-template-columns: 0.07fr 1fr;
+    grid-template-rows: 0.07fr 1fr;
 }
 
     .headLine p {
-        margin: auto auto 1em 1em;
+        margin: auto auto 1em 0;
     }
 
-    .headLine svg {
-        margin: 0.2em auto 1em 0.5em;
 
-    }
+.imgAndName {
+    display: flex;
+    width: 30em;
+}
+.headerImg svg {
+    margin: auto;
+    height: 2em;
+    width: 1.5em;
+}
+
+.headerName {
+    padding-left: 1.5em;
+}
+
 
 @media (max-width: 641px) {
     .indexHeader {
