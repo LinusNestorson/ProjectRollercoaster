@@ -118,7 +118,8 @@ namespace ProjectRollercoaster.Server.Helpers
 
         public bool DoesRssExistInDb(string urlTest, int userId)
         {
-            var dbFeed = _context.Feeds.Include(x => x.User).FirstOrDefaultAsync(f => f.Url == urlTest && f.User.Id == userId);
+            var dbFeed = _context.Feeds.FirstOrDefaultAsync(f => f.Url == urlTest && f.User.Id == userId);
+            //var dbFeed = _context.Feeds.Include(x => x.User).FirstOrDefaultAsync(f => f.Url == urlTest && f.User.Id == userId);
             if (dbFeed != null)
             {
                 return true;
