@@ -84,7 +84,7 @@ namespace ProjectRollercoaster.Server.Helpers
                         feedObject.Image = feed.Image;
                         feedObject.Summary = item.Summary.Text;
                         //feedObject.Content = item.Content.AttributeExtensions.Values.ToString();
-                        feedObject.PublishDate = item.PublishDate.ToString();
+                        feedObject.PublishDate = item.PublishDate.ToString("yyyy/MM/dd HH:mm");
 
                         if (item.Links is not null)
                         {

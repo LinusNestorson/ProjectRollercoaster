@@ -1,10 +1,11 @@
 ﻿
         <AuthorizeView>
             <Authorized>
-                <h3 class="navHeaderText">@context.User.Identity.Name</h3>
+                <h4 class="navHeaderText">@context.User.Identity.Name</h4>
             </Authorized>
             <NotAuthorized>
-                 <h3 class="navHeaderText">Not auth user</h3>
+                <span style="margin:auto;"><i style="color: orange; font-size: 2em;" class="fas fa-spin fa-rss-square"></i></span>
+                 <span style="margin: auto;"><h4 class="navHeaderText">Snoowzer</h4></span>
             </NotAuthorized>
         </AuthorizeView>
 

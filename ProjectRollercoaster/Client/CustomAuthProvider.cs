@@ -13,12 +13,17 @@
         private readonly ILocalStorageService _localStorageService;
         private readonly HttpClient _http;
 
+        ///
         public CustomAuthStateProvider(ILocalStorageService localStorageService, HttpClient http)
         {
             _localStorageService = localStorageService;
             _http = http;
         }
 
+        /// <summary>
+        /// Parses the authentication token and alerts compononent if the user is authenticated or not.
+        /// </summary>
+        /// <returns>Authentication state of the user</returns>
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
             string authToken = await _localStorageService.GetItemAsStringAsync("authToken");

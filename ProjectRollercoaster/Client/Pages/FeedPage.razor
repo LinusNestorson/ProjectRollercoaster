@@ -2,6 +2,7 @@
 @inject IFeedContentService FeedContentService
 @inject ISpecificFeedService SpecificFeedService
 @inject IRefreshService RefreshService
+@attribute [Authorize]
 
 <h2 class=titleName>@SpecificFeedService.TempInfo.Name</h2>
 

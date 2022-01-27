@@ -11,7 +11,7 @@
     </div>
 </div>
 
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+<div id="navContent" class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <nav class="flex-column">
         <div class=navGrid>
             <div class=topSection>
@@ -24,11 +24,11 @@
             <AuthorizeView>
                 <Authorized>
                     <div class=lowerTopSection>
-                        <div class="nav-item px-3">
+                        <div id="homeLink" class="nav-item px-3">
                             <NavLink class="nav-link" href="feeds">
                                 <span aria-hidden="true"><i class="fas fa-rss-square"></i></span>&nbsp; &nbsp; Manage Feeds
                             </NavLink>
-                        </div> 
+                        </div>
                     </div>
                     <div class="subscriptionSection">
                         <h3 class="subText">Subscriptions</h3>
@@ -49,12 +49,17 @@
                 </Authorized>
                 <NotAuthorized>
                     <div style="padding-top: 2em;" class="nav-item px-3">
-                        <NavLink  class="nav-link" href="register">
+                        <NavLink class="nav-link" href="register">
                             <span class="oi oi-pencil" aria-hidden="true"></span>&nbsp; &nbsp; Register
                         </NavLink>
                     </div>
                 </NotAuthorized>
             </AuthorizeView>
+            <div class="logoText">
+                <p style="color:white;">
+                    &#169; LinNes Development Studio <br /> EST 2021
+                </p>
+            </div>
         </div>
     </nav>
 </div>

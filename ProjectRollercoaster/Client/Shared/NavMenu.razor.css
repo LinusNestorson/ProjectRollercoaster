@@ -1,11 +1,17 @@
 .userInfoContainer {
     display: flex;
+    width: 100%;
+    padding-left: 1em;
 }
 
 .navHeader {
     display: grid;
     grid-template-columns: 50% 50%;
     height: 5em;
+}
+
+#navContent {
+    height: 100%;
 }
 
 .sideNav {
@@ -18,27 +24,36 @@
     grid-template-areas: "top"
         "lowerTop"
         "mid"
-        "bottom";
+        "bottom"
+        "bottomLogo";
+    grid-template-rows: 7em 4em 50em 10em 3em; /*Byt till vh för anpassas till fler skärmar?*/
 }
 
 .topSection {
     grid-area: top;
-    height: 4em;
+    padding-top: 2em;
 }
+
+    .topSection .nav-item {
+        margin: auto;
+    }
 
 .lowerTopSection {
     grid-area: lowerTop;
-    height: 4em;
 }
 
 .subscriptionSection {
     grid-area: mid;
-    height: 55vh;
 }
 
 .managementOptions {
     grid-area: bottom;
-    height: 20vh;
+}
+
+.logoText {
+    grid-area: bottomLogo;
+    margin-bottom: 0;
+    padding-left: 1em;
 }
 
 .hamburgerWrapper {
@@ -108,16 +123,11 @@
 }
 
 .nav-item {
-    font-size: 0.9rem;
-    padding-bottom: 0.5rem;
+    font-size: 1.2rem;
 }
 
-    .nav-item:first-of-type {
-        padding-top: 1rem;
-    }
-
-    .nav-item:last-of-type {
-        padding-bottom: 1rem;
+    .nav-item svg {
+        font-size: 1rem;
     }
 
     .nav-item ::deep a {
@@ -144,8 +154,22 @@
         display: none;
     }
 
+    .flex-column {
+        height: 100%;
+    }
+
     .collapse {
         /* Never collapse the sidebar for wide screens */
         display: block;
+    }
+
+    .navGrid {
+        height: 95%;
+    }
+}
+
+@media (max-width: 642px) {
+    .collapse {
+        height: 0;
     }
 }
