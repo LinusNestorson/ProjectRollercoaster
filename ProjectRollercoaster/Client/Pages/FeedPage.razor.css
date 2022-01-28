@@ -5,7 +5,7 @@
     height: auto;
     width: 60vw;
     row-gap: 2em;
-    padding-bottom: 4%;
+    padding-bottom: 0%;
 }
 
 .feedPageArticle {
@@ -54,6 +54,5 @@
     padding-left: 1.5em;
 }
 
-.headerName h4 {
-
-}
+    .headerName h4 {
+    }

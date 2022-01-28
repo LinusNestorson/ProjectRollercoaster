@@ -7,11 +7,11 @@
 .navHeader {
     display: grid;
     grid-template-columns: 50% 50%;
-    height: 5em;
+    height: 4vh;
 }
 
 #navContent {
-    height: 100%;
+    height: 91vh;
 }
 
 .sideNav {
@@ -34,7 +34,6 @@
         grid-template-rows: 5vh 3vh 68vh 12vh 4vh;
     }
 }
-
 
 .topSection {
     grid-area: top;
