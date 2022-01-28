@@ -1,12 +1,13 @@
-﻿.subSection {
-    height: 50vh;
+﻿.subLinks {
+    display: grid;
+    padding-top: 1em;
+    row-gap: 2vh;
 
 }
 
 .nav-item {
     border-radius: 5px;
     padding-left: 1.5em !important;
-
 }
 
 .titleText {
@@ -28,6 +29,6 @@
 
 .navContainer svg{
     width: 2em;
-    height: 1.3em;
+    height: 1.5em;
     color: #74ffffd9 !important;
 }

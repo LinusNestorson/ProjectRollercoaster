@@ -26,12 +26,19 @@
         "mid"
         "bottom"
         "bottomLogo";
-    grid-template-rows: 7em 4em 50em 10em 3em; /*Byt till vh för anpassas till fler skärmar?*/
+    grid-template-rows: 9vh 5vh 60vh 12vh 4vh;
 }
+
+@media (min-width: 3500px) {
+    .navGrid {
+        grid-template-rows: 5vh 3vh 68vh 12vh 4vh;
+    }
+}
+
 
 .topSection {
     grid-area: top;
-    padding-top: 2em;
+    padding-top: 1.8vh;
 }
 
     .topSection .nav-item {
