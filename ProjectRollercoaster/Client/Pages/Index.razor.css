@@ -53,6 +53,16 @@
     padding-left: 1.5em;
 }
 
+/*.spinnerContainer {
+    display: grid;
+    grid-template-rows: 5em 5em;
+    position: absolute;
+    top: 15vh;
+    width: 35em;
+    margin: auto;
+    padding-left: 7vw;
+}*/
+
 
 @media (max-width: 641px) {
     .indexHeader {
