@@ -1,42 +1,63 @@
 ﻿@page "/settings"
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthStateProvider
+@inject ILocalStorageService LocalStorage
+@inject IUserService UserService
 @attribute [Authorize]
 
 <h3>Settings</h3>
 
 <section class="settingsContainer">
 
-<div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Delete User
-    </button>
-
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <form class="px-4 py-3">
-            <div class="form-group">
-                <label for="exampleDropdownFormEmail1">Email address</label>
-                <input type="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="email@example.com">
-            </div>
-            <div class="form-group">
-                <label for="exampleDropdownFormPassword1">Password</label>
-                <input type="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="Password">
-            </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="dropdownCheck">
-                <label class="form-check-label" for="dropdownCheck">
-                    Remember me
-                </label>
-            </div>
-            <button type="submit" class="btn btn-primary">Sign in</button>
-        </form>
-        <a class="dropdown-item" href="#">Action</a>
-        <a class="dropdown-item" href="#">Another action</a>
-        <a class="dropdown-item" href="#">Something else here</a>
+    <br />
+    <div>
+        Please enter your username below in order to delete your profile.
     </div>
-</div>
+    <br />
+
+    <EditForm style="width: 25em;" Model="user" OnValidSubmit="HandleUserDelete">
+        <DataAnnotationsValidator></DataAnnotationsValidator>
+        <div class="form-group">
+            <label for="username">Username</label>
+            <InputText id="email" @bind-Value="user.Email" class="form-control"></InputText>
+        </div>
+        <br />
+        <button type="submit" class="btn btn-outline-primary">Delete</button>
+        <ValidationSummary></ValidationSummary>
+    </EditForm>
+    <br />
+    <div class="errorContainer">
+        @if (string.IsNullOrWhiteSpace(errorMessage) == false)
+        {
+            <div class="alert alert-danger" role="alert">
+                <h3>@errorMessage</h3>
+            </div>
+        }
+    </div>
+
 
 
 </section>
 
 @code {
+
+    private UserDelete user = new UserDelete();
+
+    string errorMessage = string.Empty;
+
+    private async void HandleUserDelete()
+    {
+        var result = await UserService.RemoveUser();
+        if (result)
+        {
+            await LocalStorage.RemoveItemAsync("authToken");
+            await AuthStateProvider.GetAuthenticationStateAsync();
+            NavigationManager.NavigateTo("/");
+        }
+        else
+        {
+            errorMessage = "failed to remove user";
+        }
+    }
 
 }

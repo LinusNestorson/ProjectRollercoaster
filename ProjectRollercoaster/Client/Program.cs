@@ -19,6 +19,7 @@ builder.Services.AddScoped<IFeedService, FeedService>();
 builder.Services.AddScoped<IFeedContentService, FeedContentService>();
 builder.Services.AddScoped<ISpecificFeedService, SpecificFeedService>();
 builder.Services.AddScoped<IRefreshService, RefreshService>();
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddOptions();
 builder.Services.AddAuthorizationCore();
 builder.Services.AddScoped<IAuthService, AuthService>();
