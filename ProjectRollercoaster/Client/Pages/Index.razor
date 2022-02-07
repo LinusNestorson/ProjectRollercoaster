@@ -3,6 +3,8 @@
 @inject IFeedContentService FeedContentService
 @attribute [Authorize]
 
+@*The index page that displays feeds from all sources subscribed to with latest order on top*@
+
 <PageTitle>Index</PageTitle>
 
     @if (spinner == true)
@@ -33,14 +35,20 @@
                 </div>
             </div>
         }
-
-
     </div>
 }
 
 @code {
+    /// <summary>
+    /// Determines if loading spinner should be shown or not
+    /// </summary>
     private bool spinner = false;
 
+    /// <summary>
+    /// Method that runs first when the component is ready to start.
+    /// Calls on methods inside services and while these are loading displaying a spinner.
+    /// </summary>
+    /// <returns>Task representing async operation</returns>
     protected override async Task OnInitializedAsync()
     {
         spinner = true;

@@ -2,8 +2,9 @@
 @inject IFeedService FeedService
 @attribute [Authorize]
 
-<PageTitle>Feeds</PageTitle>
+@*Page that gives user option to add new feeds or to remove feeds already stored*@
 
+<PageTitle>Feeds</PageTitle>
 
 <div class="feedPage">
 
@@ -52,32 +53,34 @@
                 }
             </ul>
         </div>
-
     </section>
-
 </div>
 
 
-
-@*
-    <button class="btn btn-primary" @onclick="@(() => { showModal = true; })">Show Dialog!</button>
-    @if (showModal)
-    {
-    <PictureModal OnSetImage=@SetImage OnClose="() => { showModal = false; }" />
-
-    }
-*@
-
 @code {
-    public bool showModal = false;
 
+    //public bool showModal = false;
+
+    /// <summary>
+    /// Creates a new object of Feed type.
+    /// </summary>
     Feed feed = new();
 
+    /// <summary>
+    /// Sets the image chosen by user from template of pre defined pictures on page.
+    /// </summary>
+    /// <param name="image">string corresponding to a font awesome image</param>
     public void SetImage(string image)
     {
         feed.Image = image;
     }
 
+    /// <summary>
+    /// Adding feed to the profile of current user and reload feeds after finished.
+    /// Gives exception if user is entering invalid URL.
+    /// </summary>
+    /// <returns>Task representing async operation</returns>
+    /// <exception cref="Exception">Throws exception inheritdoc text that tells that URL is invalid</exception>
     private async Task AddRss()
     {
         MakeFirstLetterUpperCase();
@@ -91,23 +94,41 @@
         await ReloadFeeds();
     }
 
+    /// <summary>
+    /// Converts first letter to uppercase if first letter is in lower letter from user input. 
+    /// </summary>
     private void MakeFirstLetterUpperCase()
     {
 
         feed.Name = char.ToUpper(feed.Name[0]) + feed.Name.Substring(1);
     }
 
+    /// <summary>
+    /// Method passing the input from user to method in FeedService.
+    /// Reloads feeds with updated feed list after method is completed.
+    /// </summary>
+    /// <param name="id"></param>
     private async void RemoveRss(int id)
     {
         FeedService.RemoveFeed(id);
         await ReloadFeeds();
     }
 
+    /// <summary>
+    /// Method that runs first when the component is ready to start.
+    /// Awaits method in FeedService that loads feeds into services.
+    /// </summary>
+    /// <returns>Task representing async operation</returns>
     protected override async Task OnInitializedAsync()
     {
         await FeedService.LoadAllFeeds();
     }
 
+    /// <summary>
+    /// Reload feeds when feed is added or removed.
+    /// Rerenders component when finished.
+    /// </summary>
+    /// <returns>Task representing async operation</returns>
     private async Task ReloadFeeds()
     {
         await FeedService.LoadAllFeeds();

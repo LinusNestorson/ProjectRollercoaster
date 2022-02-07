@@ -26,8 +26,6 @@
         [HttpDelete]
         public async Task<IActionResult> DeleteUser()
         {
-            //var username = User.FindFirstValue();
-
             var user = await (_context.Users.FirstOrDefaultAsync(u => u.Id == int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier))));
 
             var feeds = await _context.Feeds.Where(f => f.User == user).ToListAsync();

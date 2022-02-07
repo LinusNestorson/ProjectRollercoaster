@@ -4,6 +4,8 @@
 @inject IRefreshService RefreshService
 @attribute [Authorize]
 
+@*Page displaying news from a specific feed*@
+
 <h2 class=titleName>@SpecificFeedService.TempInfo.Name</h2>
 
 <div class="feedPageArticleGrid">
@@ -23,35 +25,26 @@
                 }
             </div>
         </div>
-
-
-
-        @*        <div class="feedPageArticle">
-            <div class="feedPageArticleContent">
-            <p>@feed.Title</p>
-            <p>@feed.Summary</p>
-            <p>@feed.PublishDate</p>
-            @foreach (var link in feed.Links)
-            {
-            <a href=@link target="_blank">@link</a>
-            }
-            </div>
-            </div>*@
     }
 </div>
 
 @code {
 
+    /// <summary>
+    /// Method that runs first when the component is ready to start.
+    /// Calls on specific feed content in ordet to populate feeds.
+    /// </summary>
+    /// <returns>Task representing async operation</returns>
     protected override async Task OnInitializedAsync()
     {
         await Task.Run(() => SpecificFeedService.GetSpecificFeedContent(SpecificFeedService.TempInfo.Id));
         Refresh();
     }
-
+    /// <summary>
+    /// Refresh the state of component and re-renders the component. 
+    /// </summary>
     private void Refresh()
     {
         RefreshService.RefreshRequest += StateHasChanged;
     }
-
-
 }

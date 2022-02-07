@@ -5,6 +5,8 @@
 @inject IUserService UserService
 @attribute [Authorize]
 
+@* Settings page where users can delete their accounts *@
+
 <h3>Settings</h3>
 
 <section class="settingsContainer">
@@ -35,14 +37,19 @@
         }
     </div>
 
-
-
 </section>
 
 @code {
 
+    /// <summary>
+    /// Creates a new object of UserDelete type.
+    /// </summary>
     private UserDelete user = new UserDelete();
 
+    /// <summary>
+    /// String used for displaying error message.
+    /// Empty before being filled with error response.
+    /// </summary>
     string errorMessage = string.Empty;
 
     private async void HandleUserDelete()

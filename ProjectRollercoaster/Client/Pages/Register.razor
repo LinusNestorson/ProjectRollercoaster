@@ -5,15 +5,13 @@
 @inject IToastService ToastService
 
 
-
+@* Page displaying form where user can register themself  *@
 
 <div class="registerForm">
     <br />
     <PageTitle>Register</PageTitle>
 
     <h3>Register</h3>
-
-
 
     <EditForm style="width: 25em;" Model="user" OnValidSubmit="HandleRegistration">
         <DataAnnotationsValidator></DataAnnotationsValidator>
@@ -53,31 +51,35 @@
     <div class="errorContainer">
         @if (string.IsNullOrWhiteSpace(errorMessage) == false)
         {
-
             <div class="alert alert-danger" role="alert">
                 <h3>@errorMessage</h3>
             </div>
-
         }
     </div>
 </div>
 
 
-
-
 @code {
+
+    /// <summary>
+    /// Creates a new object of UserRegister type.
+    /// </summary>
     UserRegister user = new();
 
+    /// <summary>
+    /// String used for displaying error message.
+    /// Empty before being filled with error response.
+    /// </summary>
     string errorMessage = string.Empty;
 
 
-
+    /// <summary>
+    /// Depending on result of register method either navigates user to index or displays error message in case of invalid input.
+    /// Updates component.
+    /// </summary>
     async void HandleRegistration()
     {
-
-
         var result = await AuthService.Register(user);
-
 
         if (result.Success)
         {
