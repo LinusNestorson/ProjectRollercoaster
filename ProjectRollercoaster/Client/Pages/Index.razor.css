@@ -11,7 +11,8 @@
 .indexHeader {
     padding-top: 2vh;
     padding-left: 10vw;
-    font-size: 2vw;
+    font-size: 2em;
+    font-weight: bold;
 }
 
 .indexArticleContent {
@@ -22,6 +23,7 @@
 
 .indexArticle {
     border: solid black 1px;
+    border-radius: 5px;
     background-color: lightgray;
     box-shadow: 3px 3px 3px grey;
     height: auto;
@@ -38,11 +40,11 @@
         margin: auto auto 1em 0;
     }
 
-
 .imgAndName {
     display: flex;
     width: 30em;
 }
+
 .headerImg svg {
     margin: auto;
     height: 2em;
@@ -62,7 +64,6 @@
     margin: auto;
     padding-left: 7vw;
 }*/
-
 
 @media (max-width: 641px) {
     .indexHeader {

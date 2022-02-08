@@ -25,7 +25,8 @@
 .titleName {
     padding-top: 2vh;
     padding-left: 10vw;
-    font-size: 2vw;
+    font-size: 3em;
+    font-weight: bold;
 }
 
 .headLine {

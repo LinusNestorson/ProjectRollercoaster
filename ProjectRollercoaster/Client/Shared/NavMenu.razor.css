@@ -1,7 +1,7 @@
 .userInfoContainer {
     display: flex;
     width: 100%;
-    padding-left: 1em;
+    padding-left: 1.6em;
 }
 
 .navHeader {
@@ -172,6 +172,14 @@
 
     .navGrid {
         height: 95%;
+    }
+
+    .hamburgerWrapper {
+        display: none;
+    }
+
+    .navHeader {
+        grid-template-columns: none;
     }
 }
 

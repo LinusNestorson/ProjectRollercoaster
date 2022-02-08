@@ -7,27 +7,25 @@
 
 @* Settings page where users can delete their accounts *@
 
-<h3>Settings</h3>
+<h3 style="font-weight: bold; font-size:2em; padding: 1em 1em 1em 1em;">Settings</h3>
 
 <section class="settingsContainer">
 
-    <br />
-    <div>
+
+    <div style ="padding-top: 1.5em;">
         Please enter your username below in order to delete your profile.
     </div>
-    <br />
+
 
     <EditForm style="width: 25em;" Model="user" OnValidSubmit="HandleUserDelete">
         <DataAnnotationsValidator></DataAnnotationsValidator>
         <div class="form-group">
-            <label for="username">Username</label>
-            <InputText id="email" @bind-Value="user.Email" class="form-control"></InputText>
+            <InputText id="username" @bind-Value="user.Email" placeholder="Username" class="form-control"></InputText>
         </div>
         <br />
-        <button type="submit" class="btn btn-outline-primary">Delete</button>
+        <button type="submit" class="btn btn-danger">Delete</button>
         <ValidationSummary></ValidationSummary>
     </EditForm>
-    <br />
     <div class="errorContainer">
         @if (string.IsNullOrWhiteSpace(errorMessage) == false)
         {

@@ -16,13 +16,13 @@
             <DataAnnotationsValidator></DataAnnotationsValidator>
             <div class=addFeedContainer>
                 <div class="rssInputFirst">
-                    <label for="rssLinkAdd" class="required">Url:</label>
-                    <InputText id="rssLinkAdd" @bind-Value="feed.Url" class="form-control col-md-6">Link</InputText>
+                    <label for="rssLinkAdd" class="required"></label>
+                    <InputText id="rssLinkAdd" @bind-Value="feed.Url" placeholder="URL" class="form-control col-md-6">Link</InputText>
                     <ValidationMessage For="@(() => feed.Url)" />
                 </div>
                 <div class="rssInputSecond">
-                    <label for="rssNameAdd" class="required">Chosen name of feed:</label>
-                    <InputText id="rssNameAdd" @bind-Value="feed.Name" class="form-control col-md-6"></InputText>
+                    <label for="rssNameAdd" class="required"></label>
+                    <InputText id="rssNameAdd" @bind-Value="feed.Name" placeholder="Name the feed" class="form-control col-md-6"></InputText>
                     <ValidationMessage For="@(() => feed.Name)" />
                 </div>
                 <div class="addBtn">

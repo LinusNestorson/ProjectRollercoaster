@@ -9,18 +9,17 @@
     <div>
 Please log in below or <a href="register">register</a> for a new account.
 </div>
-<br />
 
 <EditForm style="width: 25em;" Model="user" OnValidSubmit="HandleLogin">
     <DataAnnotationsValidator></DataAnnotationsValidator>
     <div class="form-group">
-        <label for="email">Email</label>
-        <InputText id="email" @bind-Value="user.Email" class="form-control"></InputText>
+        <label for="email"></label>
+        <InputText id="email" @bind-Value="user.Email" placeholder="Email" class="form-control"></InputText>
     </div>
-    <br />
+
     <div class="form-group">
-        <label for="password">Password</label>
-        <InputText id="password" @bind-Value="user.Password" class="form-control" type="password"></InputText>
+        <label for="password"></label>
+        <InputText id="password" @bind-Value="user.Password" placeholder="Password" class="form-control" type="password"></InputText>
     </div>
     <br />
     <button type="submit" class="btn btn-outline-primary">Login</button>
