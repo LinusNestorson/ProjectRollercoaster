@@ -20,6 +20,7 @@ builder.Services.AddScoped<IFeedContentService, FeedContentService>();
 builder.Services.AddScoped<ISpecificFeedService, SpecificFeedService>();
 builder.Services.AddScoped<IRefreshService, RefreshService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IPodcastService, PodcastService>();
 builder.Services.AddOptions();
 builder.Services.AddAuthorizationCore();
 builder.Services.AddScoped<IAuthService, AuthService>();

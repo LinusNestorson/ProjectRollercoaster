@@ -1,5 +1,6 @@
 ﻿@page "/"
 @inject IFeedService FeedService
+@inject IPodcastService PodcastService
 @inject IFeedContentService FeedContentService
 @attribute [Authorize]
 
@@ -54,6 +55,7 @@
         spinner = true;
         await Task.Delay(1);
         await FeedService.LoadAllFeeds();
+        await PodcastService.LoadAllPodcasts();
         await FeedContentService.GetFeedContent();
         spinner = false;
         await Task.Delay(1000);

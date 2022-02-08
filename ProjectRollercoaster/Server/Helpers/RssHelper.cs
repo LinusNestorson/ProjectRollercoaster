@@ -180,5 +180,15 @@ namespace ProjectRollercoaster.Server.Helpers
             }
             return ListOfSpecificFeedsContent;
         }
+
+        public string ParsePodcastString(string podcastUrl)
+        {
+            string firstPart = podcastUrl.Substring(0, 25);
+            string firstPartAndEmbed = firstPart + "/embed/";
+            string secondPart = podcastUrl.Substring(25);
+            string[] splitSecondPart = secondPart.Split("?");
+            var validSecondPart = $"{splitSecondPart[0]}?utm_source=generator";
+            return firstPartAndEmbed + validSecondPart;
+        }
     }
 }

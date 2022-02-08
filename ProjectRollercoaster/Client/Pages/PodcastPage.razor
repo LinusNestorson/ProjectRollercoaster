@@ -1,0 +1,34 @@
+﻿@page "/podcastpage"
+@inject IPodcastService PodcastService
+
+<h3>PodcastPage</h3>
+
+@*<div class="podcastGrid">*@
+    @foreach (var podcast in PodcastService.Podcasts)
+{
+    @*        <div class="feedPageArticle">
+        <div class="feedPageArticleContent">
+        <div class="headLine">*@
+    <h4> @podcast.Name </h4>
+    <iframe style="border-radius:12px" src=@podcast.Url width="100%" height="232" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+    @*                </div>
+
+        </div>
+        </div>*@
+}
+@*</div>*@
+
+
+@*<iframe src="https://embed.podcasts.apple.com/us/podcast/ekonomiekot/id293303067?itsct=podcast_box_player&amp;itscg=30200&amp;ls=1&amp;theme=auto" height="371px" frameborder="0" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation" allow="autoplay *; encrypted-media *;" style="width: 100%; max-width: 660px; overflow: hidden; border-radius: 10px; background: transparent;"></iframe>
+
+    <iframe src="https://sverigesradio.se/avsnitt/1875861" width="60%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+*@
+@code {
+    string url = "https://open.spotify.com/embed/show/1hQm7two5Y6gi3vX4WEfzI?utm_source=generator";
+
+    protected override async Task OnInitializedAsync()
+    {
+        await PodcastService.LoadAllPodcasts();
+    }
+
+}
