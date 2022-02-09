@@ -6,20 +6,21 @@
 @implements IDisposable
 @inject IJSRuntime js
 
-<link rel="stylesheet" href="css/fontawesome/css/fontawesome.min.css" />
+
 <div class="subLinks">
+
     @foreach (var item in FeedService.Feeds)
-{
-    <div class="nav-item px-3">
-        <NavLink style="text-decoration:none;" class="navContainer" href="feedpage">
-            <i class=@item.Image></i>
-            <span class="titleText" @onclick="() => ReNavToPage(item.Id, item.Name)">&nbsp; @item.Name</span>
-        </NavLink>
-    </div>
-}
+    {
+        <div class="nav-item px-3">
+            <NavLink style="text-decoration:none;" href="feedpage">
+                <i class=@item.Image></i>
+                <span class="titleText" @onclick="() => ReNavToPage(item.Id, item.Name)">&nbsp; @item.Name</span>
+            </NavLink>
+        </div>
+    }
+
 </div>
 @code {
-
     protected override void OnInitialized()
     {
         FeedService.OnChange += StateHasChanged;
@@ -36,5 +37,4 @@
         SpecificFeedService.GetSpecificFeedContent(SpecificFeedService.TempInfo.Id);
         RefreshService.CallRequestRefresh();
     }
-
 }

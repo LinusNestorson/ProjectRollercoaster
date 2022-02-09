@@ -7,7 +7,7 @@
 .navHeader {
     display: grid;
     grid-template-columns: 50% 50%;
-    height: 4vh;
+    height: 3em;
 }
 
 #navContent {
@@ -26,12 +26,12 @@
         "mid"
         "bottom"
         "bottomLogo";
-    grid-template-rows: 9vh 6vh 60vh 12vh 4vh;
+    grid-template-rows: 9vh 12vh 60vh 12vh 4vh;
 }
 
 @media (min-width: 3500px) {
     .navGrid {
-        grid-template-rows: 5vh 3vh 68vh 12vh 4vh;
+        grid-template-rows: 5vh 12vh 68vh 12vh 4vh;
     }
 }
 
@@ -47,11 +47,24 @@
 
 .lowerTopSection {
     grid-area: lowerTop;
+    display: grid;
 }
 
 .subscriptionSection {
     grid-area: mid;
+    display: grid;
+    grid-template-rows: 7vh 4vh 6vh;
 }
+
+.subNavContainer {
+    font-size: 2rem;
+}
+
+    .subNavContainer svg {
+        width: 2em;
+        height: 1.5em;
+        color: #74ffffd9 !important;
+    }
 
 .managementOptions {
     grid-area: bottom;
@@ -72,8 +85,13 @@
     color: white;
 }
 
+.microphone {
+    height: 1.5em;
+    color: orange;
+}
+
 .subText {
-    padding-top: 4vh;
+    padding-top: 1em;
     color: #d7d7d7;
     font-size: 2em;
     padding-left: 0.7em;

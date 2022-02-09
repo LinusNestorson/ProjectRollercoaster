@@ -1,22 +1,23 @@
 ﻿@page "/podcastpage"
 @inject IPodcastService PodcastService
 
+<header>
 <h3>PodcastPage</h3>
-
-@*<div class="podcastGrid">*@
+</header>
+<div class="podcastGrid">
     @foreach (var podcast in PodcastService.Podcasts)
 {
     @*        <div class="feedPageArticle">
         <div class="feedPageArticleContent">
         <div class="headLine">*@
     <h4> @podcast.Name </h4>
-    <iframe style="border-radius:12px" src=@podcast.Url width="100%" height="232" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+    <iframe style="border-radius:12px" src=@podcast.Url width="60%" margin-left="15%" height="232" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
     @*                </div>
 
         </div>
         </div>*@
 }
-@*</div>*@
+</div>
 
 
 @*<iframe src="https://embed.podcasts.apple.com/us/podcast/ekonomiekot/id293303067?itsct=podcast_box_player&amp;itscg=30200&amp;ls=1&amp;theme=auto" height="371px" frameborder="0" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation" allow="autoplay *; encrypted-media *;" style="width: 100%; max-width: 660px; overflow: hidden; border-radius: 10px; background: transparent;"></iframe>

@@ -1,0 +1,14 @@
+﻿header {
+    padding-left: 8%;
+    padding-top: 2%;
+}
+
+    header h3 {
+        font-weight: bold;
+        font-size: 2em;
+    }
+
+.podcastGrid {
+    padding-left: 8%;
+    padding-top: 3%;
+}

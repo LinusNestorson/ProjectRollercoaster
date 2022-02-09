@@ -4,9 +4,8 @@
 
 <div class="navHeader">
     <div class="userInfoContainer">
-        
         <UserInfo />
-        </div>
+    </div>
     <div class=hamburgerWrapper>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
             <img class="hamburgerMenu" src="images/Hamburger.svg" alt='hamburgermenu' />
@@ -32,9 +31,22 @@
                                 <span aria-hidden="true"><i class="fas fa-rss-square"></i></span>&nbsp; &nbsp; Manage Feeds
                             </NavLink>
                         </div>
+                        <div id="podcastManageLink" class="nav-item px-3">
+                            <NavLink class="nav-link" href="podcasts">
+                                <span aria-hidden="true"><i class="fas fa-microphone"></i></span>&nbsp; &nbsp; Manage Podcasts
+                            </NavLink>
+                        </div>
                     </div>
                     <div class="subscriptionSection">
                         <h3 class="subText">Subscriptions</h3>
+                        <div class="podcastSubSection">
+                            <div id="podcastLink" class="nav-item px-3">
+                                <NavLink style="text-decoration:none;" class="subNavContainer" href="podcastpage">
+                                    <i class="fas fa-podcast"></i>
+                                    <span style="font-size: 1.5rem" aria-hidden="true">&nbsp; Podcasts</span>
+                                </NavLink>
+                            </div>
+                        </div>
                         <NavSubscriptions />
                     </div>
                     <section class=managementOptions>
