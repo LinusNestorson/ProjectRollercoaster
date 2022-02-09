@@ -30,12 +30,18 @@
 
             var feeds = await _context.Feeds.Where(f => f.User == user).ToListAsync();
 
+            var podcasts = await _context.Podcasts.Where(f => f.User == user).ToListAsync();
+
             if (user is not null)
             {
                 _context.Users.Remove(user);
                 foreach (var feed in feeds)
                 {
                     _context.Feeds.Remove(feed);
+                }
+                foreach (var podcast in podcasts)
+                {
+                    _context.Podcasts.Remove(podcast);
                 }
 
                 await _context.SaveChangesAsync();

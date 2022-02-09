@@ -46,14 +46,14 @@
         [HttpDelete("{Id}")]
         public async Task<IActionResult> DeletePodcast(int Id)
         {
-            var dbFeed = await _context.Feeds.FirstOrDefaultAsync(f => f.Id == Id);
-            if (dbFeed == null)
+            var dbPodcast = await _context.Podcasts.FirstOrDefaultAsync(f => f.Id == Id);
+            if (dbPodcast == null)
             {
                 return NotFound("Podcast with given link does not exist");
             }
-            _context.Feeds.Remove(dbFeed);
+            _context.Podcasts.Remove(dbPodcast);
             await _context.SaveChangesAsync();
-            return Ok(await _context.Feeds.ToListAsync());
+            return Ok(await _context.Podcasts.ToListAsync());
         }
 
         [HttpGet]

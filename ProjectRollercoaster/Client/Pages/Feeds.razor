@@ -48,7 +48,7 @@
                 @foreach (var item in FeedService.Feeds)
                 {
                     <li class="removeRow">
-                        <div class="linkText">@item.Url</div> <button class="btn btn-danger" id="removeButton" @onclick="() => RemoveRss(item.Id)">Remove</button>
+                        <div class="linkText"><div style="font-weight: bold;"><i class=@item.Image></i> @item.Name </div>@item.Url</div> <button class="btn btn-danger" id="removeButton" @onclick="() => RemoveRss(item.Id)">Remove</button>
                     </li>
                 }
             </ul>

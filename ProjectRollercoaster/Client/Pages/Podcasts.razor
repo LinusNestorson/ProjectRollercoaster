@@ -17,12 +17,12 @@
             <div class=addFeedContainer>
                 <div class="rssInputFirst">
                     <label for="rssLinkAdd" class="required"></label>
-                    <InputText id="rssLinkAdd" @bind-Value="podcast.Url" placeholder="URL" class="form-control col-md-6">Link</InputText>
+                    <InputText id="rssLinkAdd" @bind-Value="podcast.Url" placeholder="Paste URL of Spotify Podcast" class="form-control col-md-6">Link</InputText>
                     <ValidationMessage For="@(() => podcast.Url)" />
                 </div>
                 <div class="rssInputSecond">
                     <label for="rssNameAdd" class="required"></label>
-                    <InputText id="rssNameAdd" @bind-Value="podcast.Name" placeholder="Name the podcast" class="form-control col-md-6"></InputText>
+                    <InputText id="rssNameAdd" @bind-Value="podcast.Name" placeholder="Name The Podcast" class="form-control col-md-6"></InputText>
                     <ValidationMessage For="@(() => podcast.Name)" />
                 </div>
                 <div class="addBtn">
@@ -48,8 +48,9 @@
                 @foreach (var item in PodcastService.Podcasts)
                 {
                     <li class="removeRow">
-                        <div class="linkText">@item.Url</div> <button class="btn btn-danger" id="removeButton" @onclick="() => RemoveRss(item.Id)">Remove</button>
+                        <div class="linkText"><div style="font-weight: bold;"><i class=@item.Image></i> @item.Name </div>@item.Url</div> <button class="btn btn-danger" id="removeButton" @onclick="() => RemoveRss(item.Id)">Remove</button>
                     </li>
+                    <br />
                 }
             </ul>
         </div>
