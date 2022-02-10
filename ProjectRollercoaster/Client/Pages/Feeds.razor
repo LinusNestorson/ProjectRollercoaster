@@ -24,6 +24,7 @@
                     <label for="rssNameAdd" class="required"></label>
                     <InputText id="rssNameAdd" @bind-Value="feed.Name" placeholder="Name the feed" class="form-control col-md-6"></InputText>
                     <ValidationMessage For="@(() => feed.Name)" />
+                    <ValidationMessage For="@(() => feed.Image)" />
                 </div>
                 <div class="addBtn">
                     <button type="submit" class="btn btn-primary">Add feed</button>
@@ -39,6 +40,7 @@
                     <button type="button" id=imgBox @onclick="@(() => SetImage("fas fa-car-side"))"><i class="fas fa-car-side"></i></button>
                     <button type="button" id=imgBox @onclick="@(() => SetImage("fas fa-shopping-cart"))"><i class="fas fa-shopping-cart"></i></button>
                 </div>
+                
             </div>
         </EditForm>
 

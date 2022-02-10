@@ -18,7 +18,7 @@
 
 .feedPageArticleContent {
     width: 80%;
-    height: 100%;
+    height: auto;
     margin: 1% auto 1% 2%;
 }
 

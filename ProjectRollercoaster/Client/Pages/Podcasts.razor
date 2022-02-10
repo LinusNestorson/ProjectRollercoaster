@@ -14,7 +14,7 @@
 
         <EditForm Model="podcast" OnValidSubmit="AddRss">
             <DataAnnotationsValidator></DataAnnotationsValidator>
-            <div class=addFeedContainer>
+            <div class=addPodcastContainer>
                 <div class="rssInputFirst">
                     <label for="rssLinkAdd" class="required"></label>
                     <InputText id="rssLinkAdd" @bind-Value="podcast.Url" placeholder="Paste URL of Spotify Podcast" class="form-control col-md-6">Link</InputText>
@@ -42,7 +42,7 @@
             </div>
         </EditForm>
 
-        <div class=removeFeedContainer>
+        <div class=removePodcastContainer>
 
             <ul>
                 @foreach (var item in PodcastService.Podcasts)

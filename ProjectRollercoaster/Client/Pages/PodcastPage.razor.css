@@ -9,6 +9,9 @@
     }
 
 .podcastGrid {
+    display: flex;
+    flex-direction: column;
+    row-gap: 2em;
     padding-left: 8%;
-    padding-top: 3%;
+    padding-top: 2%;
 }
