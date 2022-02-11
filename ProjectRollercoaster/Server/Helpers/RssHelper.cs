@@ -3,6 +3,7 @@ using ProjectRollercoaster.Server.Data;
 using ProjectRollercoaster.Shared;
 using System.Security.Claims;
 using System.ServiceModel.Syndication;
+using System.Text.RegularExpressions;
 using System.Xml;
 
 namespace ProjectRollercoaster.Server.Helpers
@@ -61,29 +62,38 @@ namespace ProjectRollercoaster.Server.Helpers
         public List<List<FeedContent>> GetRssContent(List<Feed> listOfFeeds)
         {
             List<List<FeedContent>> ListWithListOfFeeds = new List<List<FeedContent>>();
-
             foreach (var feed in listOfFeeds)
             {
                 List<FeedContent> ListOfFeedsWithContent = new List<FeedContent>();
-
                 var reader = XmlReader.Create(feed.Url);
                 var feedResponse = SyndicationFeed.Load(reader);
-
                 var counter = 0;
-
                 foreach (SyndicationItem item in feedResponse.Items)
                 {
                     FeedContent feedObject = new();
                     List<string> LinkList = new();
+                    var tempSummary = string.Empty;
 
+                    if (item.Summary.Text.Contains("img"))
+                    {
+                        feedObject.Picture = ExtractImg(item.Summary.Text);
+                        feedObject.Summary = RemoveImgString(item.Summary.Text, feedObject);
+                    }
+                    if (feedObject.Summary.Contains("<p>") || feedObject.Summary.Contains("<br>") || feedObject.Summary.Contains("&nbsp") || feedObject.Summary.Contains("</br>") || feedObject.Summary.Contains("<") || feedObject.Summary.Contains(">") || feedObject.Summary.Contains("img"))
+                    {
+                        feedObject.Summary = RemoveTags(feedObject.Summary);
+                    }
                     try
                     {
                         feedObject.Id = feed.Id;
                         feedObject.Name = feed.Name;
                         feedObject.Title = item.Title.Text;
                         feedObject.Image = feed.Image;
-                        feedObject.Summary = item.Summary.Text;
-                        //feedObject.Content = item.Content.AttributeExtensions.Values.ToString();
+                        if (feedObject.Summary == string.Empty)
+                        {
+                            feedObject.Summary = item.Summary.Text;
+                        }
+
                         feedObject.PublishDate = item.PublishDate.ToString("yyyy/MM/dd HH:mm");
 
                         if (item.Links is not null)
@@ -97,7 +107,6 @@ namespace ProjectRollercoaster.Server.Helpers
                             }
                             feedObject.Links = LinkList;
                         }
-
                         ListOfFeedsWithContent.Add(feedObject);
                         counter++;
                     }
@@ -106,8 +115,7 @@ namespace ProjectRollercoaster.Server.Helpers
                         Console.WriteLine(e.Message);
                         continue;
                     }
-
-                    if (counter == 6)
+                    if (counter == 5)
                     {
                         break;
                     }
@@ -117,10 +125,30 @@ namespace ProjectRollercoaster.Server.Helpers
             return ListWithListOfFeeds;
         }
 
+        private string ExtractImg(string text)
+        {
+            int firstIndex = text.IndexOf("https:");
+            int lastIndex = text.IndexOf(".jpg");
+            return text.Substring(firstIndex, lastIndex - 5);
+        }
+
+        private string RemoveImgString(string summaryText, FeedContent feedObject)
+        {
+            return summaryText.Replace(feedObject.Picture, "");
+        }
+
+        private string RemoveTags(string text)
+        {
+            var parsedString = text;
+
+            Regex rgx = new Regex("<p>|</p>|<br>|</br>|&nbsp;|<|>|img src='/");
+
+            return rgx.Replace(parsedString, "");
+        }
+
         public bool DoesRssExistInDb(string urlTest, int userId)
         {
             var dbFeed = _context.Feeds.FirstOrDefaultAsync(f => f.Url == urlTest && f.User.Id == userId);
-            //var dbFeed = _context.Feeds.Include(x => x.User).FirstOrDefaultAsync(f => f.Url == urlTest && f.User.Id == userId);
             if (dbFeed != null)
             {
                 return true;

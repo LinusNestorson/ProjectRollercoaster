@@ -5,16 +5,14 @@
 @attribute [Authorize]
 
 @*The index page that displays feeds from all sources subscribed to with latest order on top*@
-
 <PageTitle>Index</PageTitle>
 
-    @if (spinner == true)
+ @if (spinner == true)
 {
         <div style="position:absolute; top:30vh; width:auto; text-align:center; margin-left: 35vw">
             <i style="color: orange; font-size: 4em;" class="fas fa-spin fa-rss-square"></i> <br /> <br /> <p style="font-size: 2.5em;">Fetching Feeds...</p>
         </div>
 }
-
 @if (spinner == false)
 {
     <h1 class=indexHeader>Todays news</h1>
@@ -38,7 +36,6 @@
         }
     </div>
 }
-
 @code {
     /// <summary>
     /// Determines if loading spinner should be shown or not
