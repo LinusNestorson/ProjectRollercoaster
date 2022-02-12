@@ -57,10 +57,6 @@ section {
         background-color: white;
     }
 
-        .imgChoice button:active {
-            background-color: lightblue;
-        }
-
         .imgChoice button:focus {
             background-color: lightblue;
         }

@@ -62,9 +62,13 @@
 
     .subNavContainer svg {
         width: 2em;
-        height: 1.5em;
+        height: 1.6em;
         color: #74ffffd9 !important;
     }
+
+#podcastLink {
+    padding-left: 1.4em !important;
+}
 
 .managementOptions {
     grid-area: bottom;

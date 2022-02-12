@@ -125,7 +125,7 @@ namespace ProjectRollercoaster.Server.Helpers
         {
             int firstIndex = text.IndexOf("https:");
             int lastIndex = text.IndexOf(".jpg");
-            return text.Substring(firstIndex, lastIndex - 5);
+            return text.Substring(firstIndex, lastIndex - 6);
         }
 
         private string RemoveImgString(string summaryText, FeedContent feedObject)
@@ -136,8 +136,9 @@ namespace ProjectRollercoaster.Server.Helpers
         private string RemoveTags(string text)
         {
             var parsedString = text;
+            string stringsToRemove = "<p>|</p>|<br>|</br>|&nbsp;|<|>|img|src=|src='/|src=\"/";
 
-            Regex rgx = new Regex("<p>|</p>|<br>|</br>|&nbsp;|<|>|img src='/");
+            Regex rgx = new Regex(stringsToRemove);
 
             return rgx.Replace(parsedString, "");
         }

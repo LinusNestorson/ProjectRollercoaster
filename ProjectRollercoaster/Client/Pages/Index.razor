@@ -9,9 +9,9 @@
 
  @if (spinner == true)
 {
-        <div style="position:absolute; top:30vh; width:auto; text-align:center; margin-left: 35vw">
-            <i style="color: orange; font-size: 4em;" class="fas fa-spin fa-rss-square"></i> <br /> <br /> <p style="font-size: 2.5em;">Fetching Feeds...</p>
-        </div>
+    <div style="position:absolute; top:30vh; width:auto; text-align:center; margin-left: 35vw">
+        <i style="color: orange; font-size: 4em;" class="fas fa-spin fa-rss-square"></i> <br /> <br /> <p style="font-size: 2.5em;">Fetching Feeds...</p>
+    </div>
 }
 @if (spinner == false)
 {
@@ -21,12 +21,29 @@
         {
             <div class="indexArticle">
                 <div class="indexArticleContent">
-                    <div class="headLine">
-                        <section class="imgAndName"> <div class="headerImg"> <i font-weight="bold" style="color: #112d44" class=@feed.Image> </i></div><div class="headerName"><h4> @feed.Name </h4> </div></section>
-                        <p style="font-weight: bolder; font-size:1rem;">@feed.Title</p>
-                    </div>
-                    <p>@feed.Summary</p>
-                    <p>@feed.PublishDate</p>
+                    @if (@feed.Picture is null)
+                    {
+                        <div class="headLine">
+                            <section class="imgAndName"> <div class="headerImg"> <i font-weight="bold" style="color: #112d44" class=@feed.Image> </i></div><div class="headerName"><h4> @feed.Name </h4> </div></section>
+                            <p style="font-weight: bolder; font-size:1rem;">@feed.Title</p>
+                        </div>
+
+                        <p>@feed.Summary</p>
+                        <p>@feed.PublishDate</p>
+                    }
+
+                    @if (@feed.Picture is not null)
+                    {
+                        <div class="headLine">
+                            <section class="imgAndName"> <div class="headerImg"> <i font-weight="bold" style="color: #112d44" class=@feed.Image> </i></div><div class="headerName"><h4> @feed.Name </h4> </div></section>
+                            <p style="font-weight: bolder; font-size:1rem;">@feed.Title</p>
+                        </div>
+
+                        <p>@feed.Summary</p>
+                        <img src="@feed.Picture" alt="Image_of_news" style="border-radius: 5px;">
+                        <p style="padding-top: 1em;">@feed.PublishDate</p>
+                    }
+
                     @foreach (var link in feed.Links)
                     {
                         <a href=@link target="_blank">@link</a>
