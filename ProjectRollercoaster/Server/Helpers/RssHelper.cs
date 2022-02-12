@@ -72,26 +72,22 @@ namespace ProjectRollercoaster.Server.Helpers
                 {
                     FeedContent feedObject = new();
                     List<string> LinkList = new();
-                    var tempSummary = string.Empty;
 
-                    if (item.Summary.Text.Contains("img"))
-                    {
-                        feedObject.Picture = ExtractImg(item.Summary.Text);
-                        feedObject.Summary = RemoveImgString(item.Summary.Text, feedObject);
-                    }
-                    if (feedObject.Summary.Contains("<p>") || feedObject.Summary.Contains("<br>") || feedObject.Summary.Contains("&nbsp") || feedObject.Summary.Contains("</br>") || feedObject.Summary.Contains("<") || feedObject.Summary.Contains(">") || feedObject.Summary.Contains("img"))
-                    {
-                        feedObject.Summary = RemoveTags(feedObject.Summary);
-                    }
                     try
                     {
                         feedObject.Id = feed.Id;
                         feedObject.Name = feed.Name;
                         feedObject.Title = item.Title.Text;
                         feedObject.Image = feed.Image;
-                        if (feedObject.Summary == string.Empty)
+                        feedObject.Summary = item.Summary.Text;
+                        if (feedObject.Summary.Contains("img"))
                         {
-                            feedObject.Summary = item.Summary.Text;
+                            feedObject.Picture = ExtractImg(item.Summary.Text);
+                            feedObject.Summary = RemoveImgString(item.Summary.Text, feedObject);
+                        }
+                        if (feedObject.Summary.Contains("<p>") || feedObject.Summary.Contains("<br>") || feedObject.Summary.Contains("&nbsp") || feedObject.Summary.Contains("</br>") || feedObject.Summary.Contains("<") || feedObject.Summary.Contains(">") || feedObject.Summary.Contains("img"))
+                        {
+                            feedObject.Summary = RemoveTags(feedObject.Summary);
                         }
 
                         feedObject.PublishDate = item.PublishDate.ToString("yyyy/MM/dd HH:mm");
