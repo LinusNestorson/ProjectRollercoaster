@@ -7,13 +7,15 @@
     using System.Text.Json;
     using System.Threading.Tasks;
 
+    /// <summary>
+    /// Haddling JWT.
+    /// </summary>
     public class CustomAuthStateProvider : AuthenticationStateProvider
 
     {
         private readonly ILocalStorageService _localStorageService;
         private readonly HttpClient _http;
 
-        ///
         public CustomAuthStateProvider(ILocalStorageService localStorageService, HttpClient http)
         {
             _localStorageService = localStorageService;
@@ -44,6 +46,11 @@
             return state;
         }
 
+        /// <summary>
+        /// Parse incoming base64 string to a base8 string.
+        /// </summary>
+        /// <param name="base64">Token as base64 string.</param>
+        /// <returns>Returns 8-bit array.</returns>
         private byte[] ParseBase64WithoutPadding(string base64)
         {
             switch (base64.Length % 4)
@@ -54,6 +61,11 @@
             return Convert.FromBase64String(base64);
         }
 
+        /// <summary>
+        /// Parses claims from Jwt.
+        /// </summary>
+        /// <param name="jwt">Parses the claims from jwt containing info of user.</param>
+        /// <returns>Claims of user.</returns>
         private IEnumerable<Claim> ParseClaimsFromJwt(string jwt)
         {
             var payload = jwt.Split('.')[1];

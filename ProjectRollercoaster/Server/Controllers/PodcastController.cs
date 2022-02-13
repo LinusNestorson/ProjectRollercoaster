@@ -8,6 +8,9 @@
     using ProjectRollercoaster.Shared;
     using System.Security.Claims;
 
+    /// <summary>
+    /// Controller class handling requests regarding podcasts.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
@@ -20,6 +23,11 @@
             _context = context;
         }
 
+        /// <summary>
+        /// Handling request to add new podcast to database.
+        /// </summary>
+        /// <param name="podcastInfo">Object containing podcast info.</param>
+        /// <returns>Status code.</returns>
         [HttpPost]
         public async Task<IActionResult> AddPodcast(Podcast podcastInfo)
         {
@@ -43,6 +51,11 @@
             }
         }
 
+        /// <summary>
+        /// Handling request to delete podcast from database.
+        /// </summary>
+        /// <param name="Id">Id of specific podcast.</param>
+        /// <returns>Not found string if not found or updating list of podcast if success.</returns>
         [HttpDelete("{Id}")]
         public async Task<IActionResult> DeletePodcast(int Id)
         {
@@ -56,6 +69,10 @@
             return Ok(await _context.Podcasts.ToListAsync());
         }
 
+        /// <summary>
+        /// Handling request to get updated list of podcasts.
+        /// </summary>
+        /// <returns>List of pdocast.</returns>
         [HttpGet]
         public async Task<IActionResult> GetAllPodcast()
         {

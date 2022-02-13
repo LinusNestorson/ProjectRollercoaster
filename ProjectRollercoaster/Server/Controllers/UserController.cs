@@ -8,6 +8,9 @@
     using ProjectRollercoaster.Shared;
     using System.Security.Claims;
 
+    /// <summary>
+    /// Controller class handling requests regarding user from user settings.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
@@ -23,6 +26,10 @@
             _context = context;
         }
 
+        /// <summary>
+        /// Handling delete request from user.
+        /// </summary>
+        /// <returns>Status of request.</returns>
         [HttpDelete]
         public async Task<IActionResult> DeleteUser()
         {

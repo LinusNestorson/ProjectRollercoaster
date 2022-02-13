@@ -9,6 +9,9 @@
     using ProjectRollercoaster.Shared;
     using System.Security.Claims;
 
+    /// <summary>
+    /// Controller handling requests regarding feed content.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
@@ -24,6 +27,10 @@
             _utilityHelper = utilityHelper;
         }
 
+        /// <summary>
+        /// Default get controller handling feed content.
+        /// </summary>
+        /// <returns>Content of all feeds</returns>
         [HttpGet()]
         public async Task<IActionResult> GetFeedInfo()
         {
@@ -38,13 +45,17 @@
             return Ok(listOfFeedObjectContent);
         }
 
+        /// <summary>
+        /// Gets the content of a specific feed.
+        /// </summary>
+        /// <param name="id">Id if wanted feed.</param>
+        /// <returns>List of feeds from specific feed.</returns>
         [HttpGet("{id}")]
         public async Task<IActionResult> GetSpecificFeed(int id)
         {
             RssHelper rssHelper = new(_context);
 
             var feed = await _context.Feeds.FirstOrDefaultAsync(f => f.Id == id);
-
 
             var listFeedContent = rssHelper.GetSpecificRssContent(feed.Url);
 

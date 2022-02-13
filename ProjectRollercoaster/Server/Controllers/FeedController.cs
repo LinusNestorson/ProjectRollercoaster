@@ -12,6 +12,9 @@
     using System.Xml;
     using System.Security.Claims;
 
+    /// <summary>
+    /// Controller class for handling adding new and removing feeds.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
@@ -26,29 +29,11 @@
             _utilityHelper = utilityHelper;
         }
 
-        //[HttpGet]
-        //public ActionResult<string> CheckFeed(string feedurl)
-        //{
-        //string testObject = "";
-
-        //string url = "http://svt.se/nyheter/regionalt/blekingenytt/rss.xml";
-        //var reader = XmlReader.Create(url);
-        //var feed = SyndicationFeed.Load(reader);
-        //    foreach (SyndicationItem item in feed.Items)
-        //    {
-        //        testObject = item.PublishDate.ToString();
-        //    }
-
-        //    return Ok(testObject);
-
-        //}
-
-        //[HttpGet]
-        //public async Task<IActionResult> GetFeeds()
-        //{
-        //    return Ok()
-        //}
-
+        /// <summary>
+        /// Adding new feed to database.
+        /// </summary>
+        /// <param name="feed">Feed info to add.</param>
+        /// <returns>Status of request.</returns>
         [HttpPost]
         public async Task<IActionResult> AddFeed(Feed feed)
         {
@@ -72,6 +57,11 @@
             }
         }
 
+        /// <summary>
+        /// Deleting existing feed from database.
+        /// </summary>
+        /// <param name="Id">Id of specific feed.</param>
+        /// <returns>Status of request and sending back updated feed list</returns>
         [HttpDelete("{Id}")]
         public async Task<IActionResult> DeleteFeed(int Id)
         {
@@ -85,6 +75,10 @@
             return Ok(await _context.Feeds.ToListAsync());
         }
 
+        /// <summary>
+        /// Handling request on getting all feeds from database.
+        /// </summary>
+        /// <returns>All feeds currently in database</returns>
         [HttpGet]
         public async Task<IActionResult> GetAllFeeds()
         {
