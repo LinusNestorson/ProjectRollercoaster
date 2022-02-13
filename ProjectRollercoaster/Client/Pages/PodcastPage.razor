@@ -1,16 +1,17 @@
 ﻿@page "/podcastpage"
 @inject IPodcastService PodcastService
 
+@*Page that displays podcasts from all sources subscribed to*@
 <header>
     <div class=podImg><i class="fas fa-podcast"></i></div>
-<h3> Podcasts</h3>
+    <h3> Podcasts</h3>
 </header>
 
     @if (spinner == true)
 {
-        <div style="position:absolute; top:30vh; width:auto; text-align:center; margin-left: 35vw">
-            <i style="color: orange; font-size: 4em;" class="fas fa-spin fa-rss-square"></i> <br /> <br /> <p style="font-size: 2.5em;">Fetching Podcasts...</p>
-        </div>
+    <div style="position:absolute; top:30vh; width:auto; text-align:center; margin-left: 35vw">
+        <i style="color: orange; font-size: 4em;" class="fas fa-spin fa-rss-square"></i> <br /> <br /> <p style="font-size: 2.5em;">Fetching Podcasts...</p>
+    </div>
 }
 
 @if (spinner == false)
@@ -25,10 +26,8 @@
         }
     </div>
 }
-
-
 @code {
-        /// <summary>
+    /// <summary>
     /// Determines if loading spinner should be shown or not
     /// </summary>
     private bool spinner = false;
@@ -45,6 +44,6 @@
         await PodcastService.LoadAllPodcasts();
         await Task.Delay(800);
         spinner = false;
-        
+
     }
 }

@@ -2,6 +2,9 @@
 {
     using ProjectRollercoaster.Shared;
 
+    /// <summary>
+    /// Interface for PodcastService.
+    /// </summary>
     public interface IPodcastService
     {
         IList<Podcast> Podcasts { get; set; }

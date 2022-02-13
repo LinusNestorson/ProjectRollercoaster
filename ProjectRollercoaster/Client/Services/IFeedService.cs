@@ -3,6 +3,9 @@
     using Microsoft.AspNetCore.Mvc;
     using ProjectRollercoaster.Shared;
 
+    /// <summary>
+    /// Interface for FeedService.
+    /// </summary>
     public interface IFeedService
     {
         IList<Feed> Feeds { get; set; }

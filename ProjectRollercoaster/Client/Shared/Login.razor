@@ -3,7 +3,7 @@
 @inject IAuthService AuthService
 @inject IToastService ToastService
 
-
+@* Component displaying form where user can login *@
 <div class="loginForm">
     <br />
     <div>
@@ -29,7 +29,6 @@ Please log in below or <a href="register">register</a> for a new account.
     <div class="errorContainer">
         @if (string.IsNullOrWhiteSpace(errorMessage) == false)
         {
-
             <div class="alert alert-danger" role="alert">
                 <h3>@errorMessage</h3>
             </div>
@@ -43,7 +42,11 @@ Please log in below or <a href="register">register</a> for a new account.
     private UserLogin user = new UserLogin();
 
     string errorMessage = string.Empty;
-
+    /// <summary>
+    /// Handling login based on input from user.
+    /// Different outcome based on correct or incorrect input.
+    /// Updates component.
+    /// </summary>
     private async void HandleLogin()
     {
         var result = await AuthService.Login(user);

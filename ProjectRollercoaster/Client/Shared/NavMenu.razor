@@ -2,6 +2,8 @@
 @inject AuthenticationStateProvider AuthStateProvider
 @inject NavigationManager NavigationManager
 
+
+@*Styling of navigation bar*@
 <div class="navHeader">
     <div class="userInfoContainer">
         <UserInfo />
@@ -85,11 +87,18 @@
 
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
+    /// <summary>
+    /// Toggle between desktop or mobile navbar.
+    /// Desktop navbar on the left side and mobile on top.
+    /// </summary>
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
     }
-
+    /// <summary>
+    /// Removes authentication token from browser and notifies components of authentication state.
+    /// Redirects to login component.
+    /// </summary>
     private async void Logout()
     {
         await LocalStorage.RemoveItemAsync("authToken");
