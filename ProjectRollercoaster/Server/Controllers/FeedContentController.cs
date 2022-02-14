@@ -9,6 +9,9 @@
     using ProjectRollercoaster.Shared;
     using System.Security.Claims;
 
+    /// <summary>
+    /// Controller handling requests regarding feed content.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
@@ -16,6 +19,7 @@
     {
         private readonly DataContext _context;
         private readonly IUtilityHelper _utilityHelper;
+        private readonly RssHelper _helper;
 
         public FeedContentController(DataContext context, IUtilityHelper utilityHelper)
         {
@@ -23,26 +27,37 @@
             _utilityHelper = utilityHelper;
         }
 
+        /// <summary>
+        /// Default get controller handling feed content.
+        /// </summary>
+        /// <returns>Content of all feeds</returns>
         [HttpGet()]
         public async Task<IActionResult> GetFeedInfo()
         {
-            RssHelper xmlHelpers = new();
+            RssHelper rssHelper = new(_context);
 
-            var listOfFeeds = await _context.Feeds.ToListAsync();
+            var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
-            var listOfFeedObjectContent = xmlHelpers.GetRssContent(listOfFeeds);
+            var listOfFeeds = await _context.Feeds.Where(f => f.User.Id == userId).ToListAsync();
+
+            var listOfFeedObjectContent = rssHelper.GetRssContent(listOfFeeds);
 
             return Ok(listOfFeedObjectContent);
         }
 
+        /// <summary>
+        /// Gets the content of a specific feed.
+        /// </summary>
+        /// <param name="id">Id if wanted feed.</param>
+        /// <returns>List of feeds from specific feed.</returns>
         [HttpGet("{id}")]
         public async Task<IActionResult> GetSpecificFeed(int id)
         {
+            RssHelper rssHelper = new(_context);
+
             var feed = await _context.Feeds.FirstOrDefaultAsync(f => f.Id == id);
 
-            RssHelper xmlHelpers = new();
-
-            var listFeedContent = xmlHelpers.GetSpecificRssContent(feed.Url);
+            var listFeedContent = rssHelper.GetSpecificRssContent(feed.Url);
 
             return Ok(listFeedContent);
         }

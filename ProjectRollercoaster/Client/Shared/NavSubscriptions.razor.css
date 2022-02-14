@@ -1,5 +1,10 @@
-﻿.subSection {
-    height: 40em;
+﻿.subLinks {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1em;
+    padding-top: 1em;
+    height: 95%;
+    overflow: auto;
 }
 
 .titleText {
@@ -7,12 +12,43 @@
     color: #d7d7d7 !important;
 }
 
-.nav-item {
-    border-radius: 5px;
+.nav-item svg {
+    width: 2em;
+    height: 1.5em;
+    color: #74ffffd9 !important;
 }
 
-    .nav-item:hover {
-        background-color: #97979726 !important;
-        width: 80%;
-        margin: auto;
+.nav-item {
+    font-size: 1.2rem;
+    padding-left: 1.3em !important;
+}
+
+.nav-link span {
+    display: flex;
+    justify-content: center;
+}
+
+.nav-link svg {
+    width: 2em;
+    height: 2em;
+    margin: auto;
+    color: #ff6a00;
+}
+
+.nav-item svg {
+    font-size: 1rem;
+}
+
+.nav-item ::deep a {
+    color: #d7d7d7;
+    border-radius: 4px;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    line-height: 3rem;
+}
+
+    .nav-item ::deep a:hover {
+        background-color: rgba(255,255,255,0.1);
+        color: white;
     }

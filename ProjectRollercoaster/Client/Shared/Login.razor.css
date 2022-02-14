@@ -1,10 +1,4 @@
-﻿.required::after {
-    content: " *";
-    font-weight: bold;
-    color: red;
-}
-
-.registerForm {
+﻿.loginForm {
     display: grid;
     padding: 1em 0 0 4em;
 }

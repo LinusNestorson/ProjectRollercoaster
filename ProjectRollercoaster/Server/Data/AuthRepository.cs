@@ -8,6 +8,9 @@
     using System.Security.Cryptography;
     using System.Threading.Tasks;
 
+    /// <summary>
+    /// Backend part of authorization handling.
+    /// </summary>
     public class AuthRepository : IAuthRepository
     {
         private readonly DataContext _context;

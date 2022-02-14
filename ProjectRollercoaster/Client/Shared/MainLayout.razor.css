@@ -1,5 +1,6 @@
 .mainLayout {
-    background-color: #f4f4f4;
+    background-color: #d6d5d55c;
+    height: 100%;
 }
 
 .page {
@@ -66,7 +67,7 @@ main {
     }
 
     .sidebar {
-        width: 250px;
+        width: 330px;
         height: 100vh;
         position: sticky;
         top: 0;

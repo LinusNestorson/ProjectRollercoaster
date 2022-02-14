@@ -2,8 +2,12 @@
 @inject AuthenticationStateProvider AuthStateProvider
 @inject NavigationManager NavigationManager
 
+
+@*Styling of navigation bar*@
 <div class="navHeader">
-    <a class="userInfoContainer" href=""><UserInfo /></a>
+    <div class="userInfoContainer">
+        <UserInfo />
+    </div>
     <div class=hamburgerWrapper>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
             <img class="hamburgerMenu" src="images/Hamburger.svg" alt='hamburgermenu' />
@@ -11,35 +15,49 @@
     </div>
 </div>
 
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <nav class="flex-column">
+<div id="navContent" class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+    <nav style="height: 91vh;" class="flex-column">
         <div class=navGrid>
             <div class=topSection>
                 <div class="nav-item px-3">
                     <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                        <span class="oi oi-home" aria-hidden="true"></span> Home
+                        <span class="oi oi-home" aria-hidden="true"></span>&nbsp; &nbsp; Home
                     </NavLink>
                 </div>
             </div>
             <AuthorizeView>
                 <Authorized>
                     <div class=lowerTopSection>
-                        <div class="nav-item px-3">
+                        <div id="homeLink" class="nav-item px-3">
                             <NavLink class="nav-link" href="feeds">
-                                <span class="oi oi-plus" aria-hidden="true"></span> Manage Feeds
+                                <span aria-hidden="true"><i class="fas fa-rss-square"></i></span>&nbsp; &nbsp; Manage Feeds
+                            </NavLink>
+                        </div>
+                        <div id="podcastManageLink" class="nav-item px-3">
+                            <NavLink class="nav-link" href="podcasts">
+                                <span aria-hidden="true"><i class="fas fa-microphone"></i></span>&nbsp; &nbsp; Manage Podcasts
                             </NavLink>
                         </div>
                     </div>
                     <div class="subscriptionSection">
                         <h3 class="subText">Subscriptions</h3>
+                        <div class="podcastSubSection">
+                            <div id="podcastLink" class="nav-item px-3">
+                                <NavLink style="text-decoration:none;" class="subNavContainer" href="podcastpage">
+                                    <i class="fas fa-podcast"></i>
+                                    <span style="font-size: 1.5rem" aria-hidden="true">&nbsp; Podcasts</span>
+                                </NavLink>
+                            </div>
+                        </div>
                         <NavSubscriptions />
                     </div>
                     <section class=managementOptions>
                         <div class="nav-item px-3">
-                            <NavLink class="nav-link" href="setting">
+                            <NavLink class="nav-link" href="settings">
                                 <span class="oi oi-list-rich" aria-hidden="true"></span> Settings
                             </NavLink>
                         </div>
+                        <br />
                         <div class="nav-item px-3">
                             <a class="nav-link" @onclick="Logout" style="cursor: pointer;">
                                 <span class="oi oi-account-logout" aria-hidden="true"></span> Logout
@@ -48,13 +66,18 @@
                     </section>
                 </Authorized>
                 <NotAuthorized>
-                    <div class="nav-item px-3">
-                        <NavLink class="nav-link" href="register">
-                            <span class="oi oi-pencil" aria-hidden="true"></span> Register
+                    <div style="padding-top: 2em margin: auto;" class="nav-item px-3">
+                        <NavLink class="nav-link" style="margin: auto;" href="register">
+                            <span class="oi oi-pencil" aria-hidden="true"></span>&nbsp; &nbsp; Register
                         </NavLink>
                     </div>
                 </NotAuthorized>
             </AuthorizeView>
+            <div class="logoText">
+                <p style="color:white;">
+                    &#169; LinNes Development Studio <br /> EST 2021
+                </p>
+            </div>
         </div>
     </nav>
 </div>
@@ -64,11 +87,18 @@
 
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
+    /// <summary>
+    /// Toggle between desktop or mobile navbar.
+    /// Desktop navbar on the left side and mobile on top.
+    /// </summary>
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
     }
-
+    /// <summary>
+    /// Removes authentication token from browser and notifies components of authentication state.
+    /// Redirects to login component.
+    /// </summary>
     private async void Logout()
     {
         await LocalStorage.RemoveItemAsync("authToken");

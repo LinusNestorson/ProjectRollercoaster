@@ -1,30 +1,28 @@
-﻿@page "/feeds"
-@inject IFeedService FeedService
+﻿@page "/podcasts"
+@inject IPodcastService PodcastService
 @attribute [Authorize]
 
 @*Page that gives user option to add new feeds or to remove feeds already stored*@
-
-<PageTitle>Feeds</PageTitle>
+<PageTitle>Podcasts</PageTitle>
 
 <div class="feedPage">
 
     <section>
-        <h1>Manage your feeds</h1>
+        <h1>Manage your podcasts</h1>
         <br />
 
-        <EditForm Model="feed" OnValidSubmit="AddRss">
+        <EditForm Model="podcast" OnValidSubmit="AddRss">
             <DataAnnotationsValidator></DataAnnotationsValidator>
-            <div class=addFeedContainer>
+            <div class=addPodcastContainer>
                 <div class="rssInputFirst">
                     <label for="rssLinkAdd" class="required"></label>
-                    <InputText id="rssLinkAdd" @bind-Value="feed.Url" placeholder="URL" class="form-control col-md-6">Link</InputText>
-                    <ValidationMessage For="@(() => feed.Url)" />
+                    <InputText id="rssLinkAdd" @bind-Value="podcast.Url" placeholder="Paste URL of Spotify Podcast" class="form-control col-md-6">Link</InputText>
+                    <ValidationMessage For="@(() => podcast.Url)" />
                 </div>
                 <div class="rssInputSecond">
                     <label for="rssNameAdd" class="required"></label>
-                    <InputText id="rssNameAdd" @bind-Value="feed.Name" placeholder="Name the feed" class="form-control col-md-6"></InputText>
-                    <ValidationMessage For="@(() => feed.Name)" />
-                    <ValidationMessage For="@(() => feed.Image)" />
+                    <InputText id="rssNameAdd" @bind-Value="podcast.Name" placeholder="Name The Podcast" class="form-control col-md-6"></InputText>
+                    <ValidationMessage For="@(() => podcast.Name)" />
                 </div>
                 <div class="addBtn">
                     <button type="submit" class="btn btn-primary">Add feed</button>
@@ -40,18 +38,18 @@
                     <button type="button" id=imgBox @onclick="@(() => SetImage("fas fa-car-side"))"><i class="fas fa-car-side"></i></button>
                     <button type="button" id=imgBox @onclick="@(() => SetImage("fas fa-shopping-cart"))"><i class="fas fa-shopping-cart"></i></button>
                 </div>
-                
             </div>
         </EditForm>
 
-        <div class=removeFeedContainer>
+        <div class=removePodcastContainer>
 
             <ul>
-                @foreach (var item in FeedService.Feeds)
+                @foreach (var item in PodcastService.Podcasts)
                 {
                     <li class="removeRow">
                         <div class="linkText"><div style="font-weight: bold;"><i class=@item.Image></i> @item.Name </div>@item.Url</div> <button class="btn btn-danger" id="removeButton" @onclick="() => RemoveRss(item.Id)">Remove</button>
                     </li>
+                    <br />
                 }
             </ul>
         </div>
@@ -61,12 +59,12 @@
 
 
 @code {
+    //public bool showModal = false;
 
     /// <summary>
     /// Creates a new object of Feed type.
     /// </summary>
-    Feed feed = new();
-
+    Podcast podcast = new();
 
     /// <summary>
     /// Sets the image chosen by user from template of pre defined pictures on page.
@@ -74,7 +72,7 @@
     /// <param name="image">string corresponding to a font awesome image</param>
     public void SetImage(string image)
     {
-        feed.Image = image;
+        podcast.Image = image;
     }
 
     /// <summary>
@@ -87,13 +85,13 @@
     {
         MakeFirstLetterUpperCase();
 
-        var failOrSuccess = await FeedService.AddFeed(feed);
+        var failOrSuccess = await PodcastService.AddPodcast(podcast);
 
         if (!failOrSuccess)
         {
             throw new Exception("invalid rss feed");
         }
-        await ReloadFeeds();
+        await ReloadPodcasts();
     }
 
     /// <summary>
@@ -102,7 +100,7 @@
     private void MakeFirstLetterUpperCase()
     {
 
-        feed.Name = char.ToUpper(feed.Name[0]) + feed.Name.Substring(1);
+        podcast.Name = char.ToUpper(podcast.Name[0]) + podcast.Name.Substring(1);
     }
 
     /// <summary>
@@ -112,8 +110,8 @@
     /// <param name="id"></param>
     private async void RemoveRss(int id)
     {
-        FeedService.RemoveFeed(id);
-        await ReloadFeeds();
+        PodcastService.RemovePodcast(id);
+        await ReloadPodcasts();
     }
 
     /// <summary>
@@ -123,7 +121,7 @@
     /// <returns>Task representing async operation</returns>
     protected override async Task OnInitializedAsync()
     {
-        await FeedService.LoadAllFeeds();
+        await PodcastService.LoadAllPodcasts();
     }
 
     /// <summary>
@@ -131,9 +129,9 @@
     /// Rerenders component when finished.
     /// </summary>
     /// <returns>Task representing async operation</returns>
-    private async Task ReloadFeeds()
+    private async Task ReloadPodcasts()
     {
-        await FeedService.LoadAllFeeds();
+        await PodcastService.LoadAllPodcasts();
         StateHasChanged();
     }
 

@@ -1,11 +1,17 @@
 .userInfoContainer {
     display: flex;
+    width: 100%;
+    padding-left: 1.6em;
 }
 
 .navHeader {
     display: grid;
     grid-template-columns: 50% 50%;
-    height: 5em;
+    height: 3em;
+}
+
+#navContent {
+    height: 91vh;
 }
 
 .sideNav {
@@ -18,27 +24,60 @@
     grid-template-areas: "top"
         "lowerTop"
         "mid"
-        "bottom";
+        "bottom"
+        "bottomLogo";
+    grid-template-rows: 9vh 12vh 56vh 12vh 4vh;
+}
+
+@media (min-width: 3500px) {
+    .navGrid {
+        grid-template-rows: 5vh 12vh 63vh 12vh 4vh;
+    }
 }
 
 .topSection {
     grid-area: top;
-    height: 5vh;
+    margin-top: auto;
+    margin-bottom: auto;
 }
+
+    .topSection .nav-item {
+        margin: auto;
+    }
 
 .lowerTopSection {
     grid-area: lowerTop;
-    height: 5vh;
+    display: grid;
 }
 
 .subscriptionSection {
     grid-area: mid;
-    height: 71vh;
+    display: grid;
+    grid-template-rows: 7vh 4vh auto;
+}
+
+.subNavContainer {
+    font-size: 2rem;
+}
+
+    .subNavContainer svg {
+        width: 2em;
+        height: 1.6em;
+        color: #74ffffd9 !important;
+    }
+
+#podcastLink {
+    padding-left: 1.4em !important;
 }
 
 .managementOptions {
     grid-area: bottom;
-    height: 20vh;
+}
+
+.logoText {
+    grid-area: bottomLogo;
+    margin-bottom: 0;
+    padding-left: 1em;
 }
 
 .hamburgerWrapper {
@@ -50,11 +89,16 @@
     color: white;
 }
 
+.microphone {
+    height: 1.5em;
+    color: orange;
+}
+
 .subText {
-    padding-top: 4vh;
+    padding-top: 1em;
     color: #d7d7d7;
     font-size: 2em;
-    padding-left: 1em;
+    padding-left: 0.7em;
 }
 
 .managementOptions {
@@ -64,6 +108,18 @@
 
 .navItem {
     background-color: #2e2e2e
+}
+
+.nav-link span {
+    display: flex;
+    justify-content: center;
+}
+
+.nav-link svg {
+    width: 2em;
+    height: 2em;
+    margin: auto;
+    color: #ff6a00;
 }
 
 /*@media (min-width: 641px) {
@@ -90,22 +146,17 @@
 
 .oi {
     width: 2rem;
-    font-size: 1.1rem;
+    font-size: 1.5rem;
     vertical-align: text-top;
     top: -2px;
 }
 
 .nav-item {
-    font-size: 0.9rem;
-    padding-bottom: 0.5rem;
+    font-size: 1.2rem;
 }
 
-    .nav-item:first-of-type {
-        padding-top: 1rem;
-    }
-
-    .nav-item:last-of-type {
-        padding-bottom: 1rem;
+    .nav-item svg {
+        font-size: 1rem;
     }
 
     .nav-item ::deep a {
@@ -132,8 +183,30 @@
         display: none;
     }
 
+    .flex-column {
+        height: 100%;
+    }
+
     .collapse {
         /* Never collapse the sidebar for wide screens */
         display: block;
+    }
+
+    .navGrid {
+        height: 95%;
+    }
+
+    .hamburgerWrapper {
+        display: none;
+    }
+
+    .navHeader {
+        grid-template-columns: none;
+    }
+}
+
+@media (max-width: 642px) {
+    .collapse {
+        height: 0;
     }
 }

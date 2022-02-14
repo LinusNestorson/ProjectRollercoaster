@@ -5,6 +5,9 @@
     using ProjectRollercoaster.Server.Data;
     using ProjectRollercoaster.Shared;
 
+    /// <summary>
+    /// Authentication controller handling requests about user authentication.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
@@ -16,6 +19,11 @@
             _authRepo = authRepo;
         }
 
+        /// <summary>
+        /// Controller handling register requests.
+        /// </summary>
+        /// <param name="request">User register input.</param>
+        /// <returns>Returns request status.</returns>
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserRegister request)
         {
@@ -35,6 +43,11 @@
             return Ok(response);
         }
 
+        /// <summary>
+        /// Controller handling login requests.
+        /// </summary>
+        /// <param name="request">User login input.</param>
+        /// <returns>Returns request status.</returns>
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserLogin request)
         {

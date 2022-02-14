@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectRollercoaster.Server.Data;
 
@@ -11,9 +12,10 @@ using ProjectRollercoaster.Server.Data;
 namespace ProjectRollercoaster.Server.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220123140311_AddedImgToFeed")]
+    partial class AddedImgToFeed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,13 +33,12 @@ namespace ProjectRollercoaster.Server.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Image")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
 
                     b.Property<string>("Url")
                         .IsRequired()
@@ -51,37 +52,6 @@ namespace ProjectRollercoaster.Server.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Feeds");
-                });
-
-            modelBuilder.Entity("ProjectRollercoaster.Shared.Podcast", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Image")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Podcasts");
                 });
 
             modelBuilder.Entity("ProjectRollercoaster.Shared.User", b =>
@@ -119,15 +89,6 @@ namespace ProjectRollercoaster.Server.Migrations
                 });
 
             modelBuilder.Entity("ProjectRollercoaster.Shared.Feed", b =>
-                {
-                    b.HasOne("ProjectRollercoaster.Shared.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("ProjectRollercoaster.Shared.Podcast", b =>
                 {
                     b.HasOne("ProjectRollercoaster.Shared.User", "User")
                         .WithMany()

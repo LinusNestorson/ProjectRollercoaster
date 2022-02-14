@@ -7,7 +7,7 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    public class Feed
+    public class Podcast
     {
         public int Id { get; set; }
 
@@ -15,7 +15,6 @@
         public string? Url { get; set; }
 
         [Required(ErrorMessage = "Please enter a name of your choice")]
-        [StringLength(16, ErrorMessage = "Name is too long (max 16 characters")]
         public string? Name { get; set; }
 
         [Required(ErrorMessage = "Please choose an image that suits the feed")]

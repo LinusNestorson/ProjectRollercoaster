@@ -2,6 +2,9 @@
 {
     using ProjectRollercoaster.Shared;
 
+    /// <summary>
+    /// Interface for FeedContentService.
+    /// </summary>
     public interface IFeedContentService
     {
         IList<FeedContent> AllFeedContent { get; set; }

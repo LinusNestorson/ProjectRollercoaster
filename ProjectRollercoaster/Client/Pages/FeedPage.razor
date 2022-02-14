@@ -2,18 +2,39 @@
 @inject IFeedContentService FeedContentService
 @inject ISpecificFeedService SpecificFeedService
 @inject IRefreshService RefreshService
+@attribute [Authorize]
+
+@*Page displaying news from a specific feed*@
 
 <h2 class=titleName>@SpecificFeedService.TempInfo.Name</h2>
 
 <div class="feedPageArticleGrid">
     @foreach (var feed in SpecificFeedService.SpecificFeedContent)
     {
-
         <div class="feedPageArticle">
             <div class="feedPageArticleContent">
-                <p>@feed.Title</p>
-                <p>@feed.Summary</p>
-                <p>@feed.PublishDate</p>
+                    @if (@feed.Picture is null)
+                    {
+                        <div class="headLine">
+                            <section class="imgAndName"> <div class="headerImg"> <i font-weight="bold" style="color: #112d44" class=@feed.Image> </i></div><div class="headerName"><h4> @feed.Name </h4> </div></section>
+                            <p style="font-weight: bolder; font-size:1rem;">@feed.Title</p>
+                        </div>
+
+                        <p>@feed.Summary</p>
+                        <p>@feed.PublishDate</p>
+                    }
+
+                    @if (@feed.Picture is not null)
+                    {
+                        <div class="headLine">
+                            <section class="imgAndName"> <div class="headerImg"> <i font-weight="bold" style="color: #112d44" class=@feed.Image> </i></div><div class="headerName"><h4> @feed.Name </h4> </div></section>
+                            <p style="font-weight: bolder; font-size:1rem;">@feed.Title</p>
+                        </div>
+
+                        <p>@feed.Summary</p>
+                        <img src="@feed.Picture" alt="Image_of_news">
+                        <p style="padding-top: 1em;">@feed.PublishDate</p>
+                    }
                 @foreach (var link in feed.Links)
                 {
                     <a href=@link target="_blank">@link</a>
@@ -25,16 +46,21 @@
 
 @code {
 
+    /// <summary>
+    /// Method that runs first when the component is ready to start.
+    /// Calls on specific feed content in ordet to populate feeds.
+    /// </summary>
+    /// <returns>Task representing async operation</returns>
     protected override async Task OnInitializedAsync()
     {
         await Task.Run(() => SpecificFeedService.GetSpecificFeedContent(SpecificFeedService.TempInfo.Id));
         Refresh();
     }
-
+    /// <summary>
+    /// Refresh the state of component and re-renders the component. 
+    /// </summary>
     private void Refresh()
     {
         RefreshService.RefreshRequest += StateHasChanged;
     }
-
-
 }

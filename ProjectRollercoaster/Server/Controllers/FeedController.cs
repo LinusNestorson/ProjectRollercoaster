@@ -12,6 +12,9 @@
     using System.Xml;
     using System.Security.Claims;
 
+    /// <summary>
+    /// Controller class for handling adding new and removing feeds.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
@@ -26,43 +29,24 @@
             _utilityHelper = utilityHelper;
         }
 
-        //[HttpGet]
-        //public ActionResult<string> CheckFeed(string feedurl)
-        //{
-        //string testObject = "";
-
-        //string url = "http://svt.se/nyheter/regionalt/blekingenytt/rss.xml";
-        //var reader = XmlReader.Create(url);
-        //var feed = SyndicationFeed.Load(reader);
-        //    foreach (SyndicationItem item in feed.Items)
-        //    {
-        //        testObject = item.PublishDate.ToString();
-        //    }
-
-        //    return Ok(testObject);
-
-        //}
-
-        //[HttpGet]
-        //public async Task<IActionResult> GetFeeds()
-        //{
-        //    return Ok()
-        //}
-
+        /// <summary>
+        /// Adding new feed to database.
+        /// </summary>
+        /// <param name="feed">Feed info to add.</param>
+        /// <returns>Status of request.</returns>
         [HttpPost]
         public async Task<IActionResult> AddFeed(Feed feed)
         {
-            RssHelper xmlHelpers = new();
-            var check = xmlHelpers.IsRssValid(feed.Url);
-
+            RssHelper rssHelper = new(_context);
             var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var check = rssHelper.IsRssValid(feed.Url, userId);
+            await Task.Delay(1000);
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
-
-            var dbFeed = await _context.Feeds.FirstOrDefaultAsync(f => f.Url == feed.Url);
+            var dbFeed = await _context.Feeds.FirstOrDefaultAsync(f => f.Url == feed.Url && f.User.Id == userId);
 
             if (check && dbFeed == null)
             {
-                var feedObject = xmlHelpers.AddRssInfo(feed.Url, feed.Name, user);
+                var feedObject = rssHelper.AddRssInfo(feed.Url, feed.Name, feed.Image, user);
                 _context.Feeds.Add(feedObject);
                 await _context.SaveChangesAsync();
                 return Ok();
@@ -73,6 +57,11 @@
             }
         }
 
+        /// <summary>
+        /// Deleting existing feed from database.
+        /// </summary>
+        /// <param name="Id">Id of specific feed.</param>
+        /// <returns>Status of request and sending back updated feed list</returns>
         [HttpDelete("{Id}")]
         public async Task<IActionResult> DeleteFeed(int Id)
         {
@@ -86,10 +75,15 @@
             return Ok(await _context.Feeds.ToListAsync());
         }
 
+        /// <summary>
+        /// Handling request on getting all feeds from database.
+        /// </summary>
+        /// <returns>All feeds currently in database</returns>
         [HttpGet]
         public async Task<IActionResult> GetAllFeeds()
         {
-            var dbFeeds = await _context.Feeds.ToListAsync();
+            var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var dbFeeds = await _context.Feeds.Where(f => f.User.Id == userId).ToListAsync();
             return Ok(dbFeeds);
         }
     }
