@@ -1,5 +1,7 @@
 ﻿@inherits LayoutComponentBase
+@using Blazored.Toast.Configuration
 
+@*Main layout of application. Sets the foundation of styling*@
 <div class="page">
     <div class="sidebar">
         <NavMenu />
@@ -7,7 +9,30 @@
 
     <main>
         <main class=mainLayout>
-            @Body
+            <ErrorBoundary @ref="errorBoundary">
+                <ChildContent>
+                    @Body
+                </ChildContent>
+                <ErrorContent Context="ex">
+                    <strong>
+                        <div>@ex.Message</div>
+                        <button type="submit" class="btn btn-primary" @onclick=@ResetBoundary>Try again</button>
+                    </strong>
+                </ErrorContent>
+            </ErrorBoundary>
         </main>
     </main>
 </div>
+
+@code {
+
+    ErrorBoundary errorBoundary;
+    /// <summary>
+    /// Rests page when user presses button after error occures.
+    /// </summary>
+    private void ResetBoundary()
+    {
+        errorBoundary.Recover();
+    }
+}
+

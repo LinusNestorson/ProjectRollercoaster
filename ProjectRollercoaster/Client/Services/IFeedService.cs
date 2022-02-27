@@ -2,8 +2,19 @@
 {
     using ProjectRollercoaster.Shared;
 
+    /// <summary>
+    /// Interface for FeedService.
+    /// </summary>
     public interface IFeedService
     {
-        Task<Feed> GetFeed();
+        IList<Feed> Feeds { get; set; }
+
+        event Action OnChange;
+
+        Task<bool> AddFeed(Feed feed);
+
+        void RemoveFeed(int id);
+
+        Task LoadAllFeeds();
     }
 }

@@ -1,0 +1,59 @@
+﻿.feedPageArticleGrid {
+    padding-top: 1vh;
+    display: grid;
+    margin: auto auto auto 10vw;
+    height: auto;
+    width: 55vw;
+    row-gap: 2em;
+    padding-bottom: 0%;
+}
+
+.feedPageArticle {
+    border: solid black 1px;
+    background-color: lightgray;
+    box-shadow: 3px 3px 3px grey;
+    height: auto;
+    min-height: 10vh;
+}
+
+.feedPageArticleContent {
+    width: 80%;
+    height: auto;
+    margin: 1% auto 1% 2%;
+}
+
+.titleName {
+    padding-top: 2vh;
+    padding-left: 10vw;
+    font-size: 3em;
+    font-weight: bold;
+}
+
+.headLine {
+    display: grid;
+    width: 40vw;
+    grid-template-rows: 0.07fr 1fr;
+}
+
+    .headLine p {
+        margin: auto auto 1em 0;
+    }
+
+.imgAndName {
+    display: flex;
+    width: 30em;
+}
+
+.headerImg svg {
+    margin: auto;
+    height: 2em;
+    width: 1.5em;
+}
+
+.headerName {
+    display: flex;
+    padding-left: 1.5em;
+}
+
+    .headerName h4 {
+    }

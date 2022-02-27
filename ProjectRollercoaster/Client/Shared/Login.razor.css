@@ -1,0 +1,9 @@
+﻿.loginForm {
+    display: grid;
+    padding: 1em 0 0 4em;
+}
+
+.errorContainer {
+    height: 10vh;
+    width: 20%;
+}

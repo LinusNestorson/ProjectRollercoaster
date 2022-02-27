@@ -7,6 +7,9 @@
     using System.Text.Json;
     using System.Threading.Tasks;
 
+    /// <summary>
+    /// Handling JWT and user authentication.
+    /// </summary>
     public class CustomAuthStateProvider : AuthenticationStateProvider
 
     {
@@ -19,6 +22,10 @@
             _http = http;
         }
 
+        /// <summary>
+        /// Parses the authentication token and alerts compononent if the user is authenticated or not.
+        /// </summary>
+        /// <returns>Authentication state of the user</returns>
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
             string authToken = await _localStorageService.GetItemAsStringAsync("authToken");
@@ -29,7 +36,7 @@
             if (!string.IsNullOrEmpty(authToken))
             {
                 identity = new ClaimsIdentity(ParseClaimsFromJwt(authToken), "jwt");
-                _http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", authToken);
+                _http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", authToken.Replace("\"", ""));
             }
             var user = new ClaimsPrincipal(identity);
             var state = new AuthenticationState(user);
@@ -39,6 +46,11 @@
             return state;
         }
 
+        /// <summary>
+        /// Parse incoming base64 string to a base8 string.
+        /// </summary>
+        /// <param name="base64">Token as base64 string.</param>
+        /// <returns>Returns 8-bit array.</returns>
         private byte[] ParseBase64WithoutPadding(string base64)
         {
             switch (base64.Length % 4)
@@ -49,6 +61,11 @@
             return Convert.FromBase64String(base64);
         }
 
+        /// <summary>
+        /// Parses claims from Jwt.
+        /// </summary>
+        /// <param name="jwt">Parses the claims from jwt containing info of user.</param>
+        /// <returns>Claims of user.</returns>
         private IEnumerable<Claim> ParseClaimsFromJwt(string jwt)
         {
             var payload = jwt.Split('.')[1];

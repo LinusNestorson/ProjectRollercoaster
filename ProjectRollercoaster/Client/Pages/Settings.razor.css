@@ -1,0 +1,9 @@
+﻿.settingsContainer {
+    display: grid;
+    height: 20vh;
+    width: 40vw;
+    border: solid black 1px;
+    box-shadow: 2px 2px 2px grey;
+    padding-left: 2em;
+    margin-left: 2em;
+}

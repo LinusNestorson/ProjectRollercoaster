@@ -1,13 +1,15 @@
 ﻿
         <AuthorizeView>
             <Authorized>
-                <h2 class="text-primary">@context.User.Identity.Name</h2>
+                <span style="margin: auto;"><i style="color: white; font-size: 1.8em;" class="fas fa-user"></i></span>
+                <span style="margin: auto;"><h4 class="navHeaderText">@context.User.Identity.Name</h4></span>
             </Authorized>
             <NotAuthorized>
-                 <h2 class="text-primary">Not auth user</h2>
+                <span style="margin:auto;"><i style="color: orange; font-size: 2em;" class="fas fa-spin fa-rss-square"></i></span>
+                 <span style="margin: auto;"><h4 class="navHeaderText">Snewzer</h4></span>
             </NotAuthorized>
         </AuthorizeView>
 
 @code {
-
+  
 }

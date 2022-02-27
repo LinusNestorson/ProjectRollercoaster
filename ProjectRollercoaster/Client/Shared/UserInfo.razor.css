@@ -1,0 +1,10 @@
+﻿.navHeaderText {
+    font-size: 2.5vh;
+    margin: auto 2.5em auto auto;
+    color: #d7d7d7;
+}
+
+@media (max-width: 641px) {
+    .navHeaderText {
+        margin: auto auto auto 10%;
+    }

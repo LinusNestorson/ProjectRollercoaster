@@ -1,0 +1,140 @@
+﻿@page "/feeds"
+@inject IFeedService FeedService
+@attribute [Authorize]
+
+@*Page that gives user option to add new feeds or to remove feeds already stored*@
+
+<PageTitle>Feeds</PageTitle>
+
+<div class="feedPage">
+
+    <section>
+        <h1>Manage your feeds</h1>
+        <br />
+
+        <EditForm Model="feed" OnValidSubmit="AddRss">
+            <DataAnnotationsValidator></DataAnnotationsValidator>
+            <div class=addFeedContainer>
+                <div class="rssInputFirst">
+                    <label for="rssLinkAdd" class="required"></label>
+                    <InputText id="rssLinkAdd" @bind-Value="feed.Url" placeholder="URL" class="form-control col-md-6">Link</InputText>
+                    <ValidationMessage For="@(() => feed.Url)" />
+                </div>
+                <div class="rssInputSecond">
+                    <label for="rssNameAdd" class="required"></label>
+                    <InputText id="rssNameAdd" @bind-Value="feed.Name" placeholder="Name the feed" class="form-control col-md-6"></InputText>
+                    <ValidationMessage For="@(() => feed.Name)" />
+                    <ValidationMessage For="@(() => feed.Image)" />
+                </div>
+                <div class="addBtn">
+                    <button type="submit" class="btn btn-primary">Add feed</button>
+                </div>
+                <div class="imgChoice">
+                    <button type="button" id=imgBox @onclick="@(() => SetImage("fas fa-futbol"))"><i class="fas fa-futbol"></i></button>
+                    <button type="button" id=imgBox @onclick="@(() => SetImage("far fa-newspaper"))"><i class="far fa-newspaper"></i></button>
+                    <button type="button" id=imgBox @onclick="@(() => SetImage("fas fa-laptop-code"))"><i class="fas fa-laptop-code"></i></button>
+                    <button type="button" id=imgBox @onclick="@(() => SetImage("far fa-money-bill-alt"))"><i class="far fa-money-bill-alt"></i></button>
+                    <button type="button" id=imgBox @onclick="@(() => SetImage("fas fa-landmark"))"><i class="fas fa-landmark"></i></button>
+                    <button type="button" id=imgBox @onclick="@(() => SetImage("fas fa-paw"))"><i class="fas fa-paw"></i></button>
+                    <button type="button" id=imgBox @onclick="@(() => SetImage("far fa-bell"))"><i class="far fa-bell"></i></button>
+                    <button type="button" id=imgBox @onclick="@(() => SetImage("fas fa-car-side"))"><i class="fas fa-car-side"></i></button>
+                    <button type="button" id=imgBox @onclick="@(() => SetImage("fas fa-shopping-cart"))"><i class="fas fa-shopping-cart"></i></button>
+                </div>
+                
+            </div>
+        </EditForm>
+
+        <div class=removeFeedContainer>
+
+            <ul>
+                @foreach (var item in FeedService.Feeds)
+                {
+                    <li class="removeRow">
+                        <div class="linkText"><div style="font-weight: bold;"><i class=@item.Image></i> @item.Name </div>@item.Url</div> <button class="btn btn-danger" id="removeButton" @onclick="() => RemoveRss(item.Id)">Remove</button>
+                    </li>
+                }
+            </ul>
+        </div>
+    </section>
+
+</div>
+
+
+@code {
+
+    /// <summary>
+    /// Creates a new object of Feed type.
+    /// </summary>
+    Feed feed = new();
+
+
+    /// <summary>
+    /// Sets the image chosen by user from template of pre defined pictures on page.
+    /// </summary>
+    /// <param name="image">string corresponding to a font awesome image</param>
+    public void SetImage(string image)
+    {
+        feed.Image = image;
+    }
+
+    /// <summary>
+    /// Adding feed to the profile of current user and reload feeds after finished.
+    /// Gives exception if user is entering invalid URL.
+    /// </summary>
+    /// <returns>Task representing async operation</returns>
+    /// <exception cref="Exception">Throws exception inheritdoc text that tells that URL is invalid</exception>
+    private async Task AddRss()
+    {
+        MakeFirstLetterUpperCase();
+
+        var failOrSuccess = await FeedService.AddFeed(feed);
+
+        if (!failOrSuccess)
+        {
+            throw new Exception("invalid rss feed");
+        }
+        await ReloadFeeds();
+    }
+
+    /// <summary>
+    /// Converts first letter to uppercase if first letter is in lower letter from user input. 
+    /// </summary>
+    private void MakeFirstLetterUpperCase()
+    {
+
+        feed.Name = char.ToUpper(feed.Name[0]) + feed.Name.Substring(1);
+    }
+
+    /// <summary>
+    /// Method passing the input from user to method in FeedService.
+    /// Reloads feeds with updated feed list after method is completed.
+    /// </summary>
+    /// <param name="id"></param>
+    private async void RemoveRss(int id)
+    {
+        FeedService.RemoveFeed(id);
+        await ReloadFeeds();
+    }
+
+    /// <summary>
+    /// Method that runs first when the component is ready to start.
+    /// Awaits method in FeedService that loads feeds into services.
+    /// </summary>
+    /// <returns>Task representing async operation</returns>
+    protected override async Task OnInitializedAsync()
+    {
+        await FeedService.LoadAllFeeds();
+    }
+
+    /// <summary>
+    /// Reload feeds when feed is added or removed.
+    /// Rerenders component when finished.
+    /// </summary>
+    /// <returns>Task representing async operation</returns>
+    private async Task ReloadFeeds()
+    {
+        await FeedService.LoadAllFeeds();
+        StateHasChanged();
+    }
+
+}

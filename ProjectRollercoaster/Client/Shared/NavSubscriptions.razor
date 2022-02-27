@@ -1,0 +1,50 @@
+﻿@inject IFeedService FeedService
+@inject IFeedContentService FeedContentService
+@inject ISpecificFeedService SpecificFeedService
+@inject NavigationManager NavigationManager
+@inject IRefreshService RefreshService
+@implements IDisposable
+@inject IJSRuntime js
+
+@*Component containing the subscription field of navigation bar*@
+<div class="subLinks">
+
+    @foreach (var item in FeedService.Feeds)
+    {
+        <div class="nav-item px-3">
+            <NavLink style="text-decoration:none;" href="feedpage">
+                <i class=@item.Image></i>
+                <span class="titleText" @onclick="() => ReNavToPage(item.Id, item.Name)">&nbsp; @item.Name</span>
+            </NavLink>
+        </div>
+    }
+</div>
+@code {
+
+    /// <summary>
+    /// Rerenders the component if FeedService changes.
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        FeedService.OnChange += StateHasChanged;
+    }
+    /// <summary>
+    /// Dispose the component when feed service changes.
+    /// </summary>
+    public void Dispose()
+    {
+        FeedService.OnChange -= StateHasChanged;
+    }
+
+    /// <summary>
+    /// Navigates user to the page with the name that user chose.
+    /// </summary>
+    /// <param name="id">Id of chosen page.</param>
+    /// <param name="name">Name of chosen page.</param>
+    public void ReNavToPage(int id, string name)
+    {
+        SpecificFeedService.SetTempInfoId(id, name);
+        SpecificFeedService.GetSpecificFeedContent(SpecificFeedService.TempInfo.Id);
+        RefreshService.CallRequestRefresh();
+    }
+}

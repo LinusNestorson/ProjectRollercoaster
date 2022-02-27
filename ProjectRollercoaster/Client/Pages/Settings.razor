@@ -1,8 +1,68 @@
-﻿@*@page "/register"
+﻿@page "/settings"
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthStateProvider
+@inject ILocalStorageService LocalStorage
+@inject IUserService UserService
+@attribute [Authorize]
 
-<h3>Settings</h3>
+@* Settings page where users can delete their accounts *@
+
+<h3 style="font-weight: bold; font-size:2em; padding: 1em 1em 1em 1em;">Settings</h3>
+
+<section class="settingsContainer">
+
+
+    <div style ="padding-top: 1.5em;">
+        Please enter your username below in order to delete your profile.
+    </div>
+
+
+    <EditForm style="width: 25em;" Model="user" OnValidSubmit="HandleUserDelete">
+        <DataAnnotationsValidator></DataAnnotationsValidator>
+        <div class="form-group">
+            <InputText id="username" @bind-Value="user.Email" placeholder="Username" class="form-control"></InputText>
+        </div>
+        <br />
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <ValidationSummary></ValidationSummary>
+    </EditForm>
+    <div class="errorContainer">
+        @if (string.IsNullOrWhiteSpace(errorMessage) == false)
+        {
+            <div class="alert alert-danger" role="alert">
+                <h3>@errorMessage</h3>
+            </div>
+        }
+    </div>
+
+</section>
 
 @code {
 
-}*@
- 
+    /// <summary>
+    /// Creates a new object of UserDelete type.
+    /// </summary>
+    private UserDelete user = new UserDelete();
+
+    /// <summary>
+    /// String used for displaying error message.
+    /// Empty before being filled with error response.
+    /// </summary>
+    string errorMessage = string.Empty;
+
+    private async void HandleUserDelete()
+    {
+        var result = await UserService.RemoveUser();
+        if (result)
+        {
+            await LocalStorage.RemoveItemAsync("authToken");
+            await AuthStateProvider.GetAuthenticationStateAsync();
+            NavigationManager.NavigateTo("/");
+        }
+        else
+        {
+            errorMessage = "failed to remove user";
+        }
+    }
+
+}
