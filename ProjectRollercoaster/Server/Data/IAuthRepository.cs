@@ -2,6 +2,9 @@
 {
     using ProjectRollercoaster.Shared;
 
+    /// <summary>
+    /// Interface of AuthRepository class.
+    /// </summary>
     public interface IAuthRepository
     {
         Task<ServiceResponse<int>> Register(User user, string password);

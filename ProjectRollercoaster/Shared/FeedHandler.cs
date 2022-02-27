@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace ProjectRollercoaster.Shared
 {
+    /// <summary>
+    ///
+    /// </summary>
     public class FeedHandler
     {
         public string RssAdd { get; set; }
-
         public string RssDelete { get; set; }
     }
 }

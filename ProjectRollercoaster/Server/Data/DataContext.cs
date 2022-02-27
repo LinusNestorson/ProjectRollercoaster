@@ -3,6 +3,9 @@
     using Microsoft.EntityFrameworkCore;
     using ProjectRollercoaster.Shared;
 
+    /// <summary>
+    /// Handles database connection.
+    /// </summary>
     public class DataContext : DbContext
     {
         public DbSet<User> Users { get; set; }

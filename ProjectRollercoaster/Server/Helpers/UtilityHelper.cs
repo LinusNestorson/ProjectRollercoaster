@@ -7,6 +7,9 @@
     using System.Security.Claims;
     using Microsoft.EntityFrameworkCore;
 
+    /// <summary>
+    /// Helper class handling communication between client and server.
+    /// </summary>
     public class UtilityHelper : IUtilityHelper
     {
         private readonly DataContext _context;
@@ -18,6 +21,10 @@
             _httpContextAccessor = httpContextAccessor;
         }
 
+        /// <summary>
+        /// Parses information about user from claims.
+        /// </summary>
+        /// <returns>User object with information from claims.</returns>
         public async Task<User> GetUser()
         {
             var userId = int.Parse(_httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));

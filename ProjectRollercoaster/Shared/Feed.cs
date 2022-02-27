@@ -7,6 +7,9 @@
     using System.Text;
     using System.Threading.Tasks;
 
+    /// <summary>
+    /// Object with feed information from user.
+    /// </summary>
     public class Feed
     {
         public int Id { get; set; }
