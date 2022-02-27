@@ -1,11 +1,11 @@
 ﻿namespace ProjectRollercoaster.Server.Helpers
 {
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.EntityFrameworkCore;
     using ProjectRollercoaster.Server.Data;
     using ProjectRollercoaster.Shared;
-    using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Http;
     using System.Security.Claims;
-    using Microsoft.EntityFrameworkCore;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// Helper class handling communication between client and server.

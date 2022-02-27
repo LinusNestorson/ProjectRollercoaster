@@ -1,12 +1,11 @@
 ﻿namespace ProjectRollercoaster.Shared
 {
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
+    /// <summary>
+    /// Storing user information used for communication with database.
+    /// </summary>
     public class User
     {
         [Key]

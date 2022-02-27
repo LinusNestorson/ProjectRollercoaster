@@ -1,11 +1,8 @@
 ﻿namespace ProjectRollercoaster.Shared
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-
+    /// <summary>
+    /// Class with response from services and message depending if success or failure.
+    /// </summary>
     public class ServiceResponse<T>
     {
         public T Data { get; set; }

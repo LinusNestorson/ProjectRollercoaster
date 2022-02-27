@@ -3,7 +3,7 @@
     using System.Collections.Generic;
 
     /// <summary>
-    /// Object with information from both user and rss source.
+    /// Information from both user and rss source.
     /// </summary>
     public class FeedContent
     {

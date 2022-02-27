@@ -1,11 +1,8 @@
 ﻿namespace ProjectRollercoaster.Server.Controllers
 {
-    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using ProjectRollercoaster.Server.Data;
-    using ProjectRollercoaster.Server.Helpers;
-    using ProjectRollercoaster.Shared;
     using System.Security.Claims;
 
     /// <summary>

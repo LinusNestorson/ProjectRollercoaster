@@ -1,12 +1,10 @@
 ﻿namespace ProjectRollercoaster.Shared
 {
-    using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
+    /// <summary>
+    /// Used when user tries to delete information from database.
+    /// </summary>
     public class UserDelete
     {
         [Required(ErrorMessage = "Please enter your email")]
