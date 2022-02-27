@@ -8,7 +8,7 @@
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Haddling JWT.
+    /// Handling JWT and user authentication.
     /// </summary>
     public class CustomAuthStateProvider : AuthenticationStateProvider
 

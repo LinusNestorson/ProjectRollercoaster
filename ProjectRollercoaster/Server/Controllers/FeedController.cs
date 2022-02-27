@@ -1,15 +1,11 @@
 ﻿namespace ProjectRollercoaster.Server.Controllers
 {
     using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using ProjectRollercoaster.Server.Data;
-    using ProjectRollercoaster.Shared;
     using ProjectRollercoaster.Server.Helpers;
-    using DocumentFormat.OpenXml.Office.CustomUI;
-    using System.ServiceModel.Syndication;
-    using System.Xml;
+    using ProjectRollercoaster.Shared;
     using System.Security.Claims;
 
     /// <summary>

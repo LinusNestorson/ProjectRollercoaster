@@ -1,6 +1,5 @@
 ﻿namespace ProjectRollercoaster.Client.Services
 {
-    using Microsoft.AspNetCore.Mvc;
     using ProjectRollercoaster.Shared;
 
     /// <summary>

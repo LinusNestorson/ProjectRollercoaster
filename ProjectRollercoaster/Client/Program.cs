@@ -8,7 +8,7 @@ using ProjectRollercoaster.Client;
 using ProjectRollercoaster.Client.Services;
 
 /// <summary>
-/// Startup class as entry point and with added services.
+/// Startup class as entry point with added services.
 /// </summary>
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");

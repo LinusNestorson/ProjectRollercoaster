@@ -22,6 +22,12 @@
             _configuration = configuration;
         }
 
+        /// <summary>
+        /// Recieves and handles login request from client.
+        /// </summary>
+        /// <param name="email">User Email</param>
+        /// <param name="password">User Password</param>
+        /// <returns>Success or Failure response.</returns>
         public async Task<ServiceResponse<string>> Login(string email, string password)
         {
             var response = new ServiceResponse<string>();
@@ -44,6 +50,12 @@
             return response;
         }
 
+        /// <summary>
+        /// Recieves and handles regist request from client.
+        /// </summary>
+        /// <param name="user">User information.</param>
+        /// <param name="password">user password</param>
+        /// <returns>Response that depends on status of the request.</returns>
         public async Task<ServiceResponse<int>> Register(User user, string password)
         {
             if (await UserExists(user.Email))
@@ -62,6 +74,11 @@
             return new ServiceResponse<int> { Data = user.Id, Message = "User is added." };
         }
 
+        /// <summary>
+        /// Communicating with database to see if user is in it.
+        /// </summary>
+        /// <param name="email">Email of user</param>
+        /// <returns>True if user exists or False if she do not.</returns>
         public async Task<bool> UserExists(string email)
         {
             if (await _context.Users.AnyAsync(user => user.Email.ToLower().Equals(email.ToLower())))
@@ -71,6 +88,12 @@
             return false;
         }
 
+        /// <summary>
+        /// Creates hash from password and salts the passwor using HMACSHA521 encryption.
+        /// </summary>
+        /// <param name="password">Password from user.</param>
+        /// <param name="passwordHash">Hashed password</param>
+        /// <param name="passwordSalt">Salt of passowrd.</param>
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
             using (var hmac = new HMACSHA512())
@@ -80,6 +103,13 @@
             }
         }
 
+        /// <summary>
+        /// Verifies if password is valid with the hashed and salted passowrd in database.
+        /// </summary>
+        /// <param name="password">User password.</param>
+        /// <param name="passwordHash">Hashed Password.</param>
+        /// <param name="passwordSalt">Salt of password.</param>
+        /// <returns>True or false based on outcome of verification.</returns>
         private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
         {
             using (var hmac = new HMACSHA512(passwordSalt))
@@ -96,6 +126,11 @@
             }
         }
 
+        /// <summary>
+        /// Handles creation of Json Web Token.
+        /// </summary>
+        /// <param name="user">User information.</param>
+        /// <returns>Json Web Token.</returns>
         private string CreateToken(User user)
         {
             List<Claim> claims = new List<Claim>

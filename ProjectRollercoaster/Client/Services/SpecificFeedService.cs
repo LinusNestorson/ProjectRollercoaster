@@ -1,7 +1,6 @@
 ﻿namespace ProjectRollercoaster.Client.Services
 {
     using ProjectRollercoaster.Shared;
-    using System.Net.Http.Json;
 
     /// <summary>
     /// Service handling feeds on the specific feed page containing only feeds from one source.

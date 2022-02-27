@@ -1,10 +1,7 @@
 ﻿namespace ProjectRollercoaster.Client.Services
 {
-    using Microsoft.AspNetCore.Mvc;
     using ProjectRollercoaster.Shared;
     using System.Net.Http.Json;
-    using System.ServiceModel.Syndication;
-    using System.Xml;
 
     /// <summary>
     /// Contains the request related to "Feeds" page. Handling adding new and removing feeds.
